@@ -1,0 +1,1761 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Stratvya — Engineered Operations & Scaling Solutions</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  /* Brand palette — navy primary alternating with deep black */
+  --navy:#0B1F3A;
+  --navy-2:#0E2647;
+  --navy-3:#08182C;
+  --black:#040810;
+  --black-pure:#000000;
+  --teal:#3FB6B0;
+  --teal-mid:#5BCFC9;
+  --teal-glow:#7BE3DD;
+  --steel:#C8D2DE;
+  --surface:#0F2A4A;
+  --surface2:#0A1A30;
+  --border:rgba(123,227,221,0.18);
+  --border2:rgba(123,227,221,0.30);
+  --white:#FFFFFF;
+  --muted:#8AA0BC;
+  --muted2:#B6C6DA;
+}
+html{scroll-behavior:smooth}
+body{background:var(--navy);color:var(--white);font-family:'Barlow',sans-serif;overflow-x:hidden}
+
+/* Alternating section bands */
+.band-navy{background:var(--navy)}
+.band-black{background:var(--black)}
+.band-navy2{background:var(--navy-2)}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(4,8,16,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px;padding:0 5%;max-width:1280px;margin:0 auto}
+.nav-brand{display:flex;align-items:center;gap:10px;cursor:pointer}
+.nav-wordmark{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.5rem;letter-spacing:0.08em;color:var(--white);text-transform:uppercase}
+.nav-wordmark span{color:var(--teal-glow)}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:0.78rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;transition:color 0.2s}
+.nav-links a:hover,.nav-links a.active{color:var(--teal-glow)}
+.nav-cta{background:var(--teal-glow);color:var(--black);border:none;padding:0.65rem 1.5rem;font-family:'Barlow Condensed',sans-serif;font-size:0.8rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;transition:all 0.2s}
+.nav-cta:hover{background:var(--teal-mid)}
+
+.page{display:none;padding-top:72px}
+.page.active{display:block}
+
+section{padding:5rem 5%;max-width:none;margin:0}
+.page section{padding:5rem 5%}
+.page section > *{max-width:1280px;margin-left:auto;margin-right:auto}
+/* alternating bands across top-level page children */
+.page > section,
+.page > div.about-section,
+.page > div.video-banner-wrap,
+.page > footer{position:relative}
+.page > section:nth-of-type(odd),
+.page > div.alt-navy{background:var(--navy)}
+.page > section:nth-of-type(even),
+.page > div.alt-black{background:var(--black)}
+.section-label{font-size:0.7rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--teal-glow);margin-bottom:1rem;display:flex;align-items:center;gap:0.75rem}
+.section-label::before{content:'';display:inline-block;width:20px;height:1px;background:var(--teal-glow)}
+h2{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(2rem,5vw,3.2rem);line-height:1.0;letter-spacing:0.01em;text-transform:uppercase}
+h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.3rem;letter-spacing:0.04em;text-transform:uppercase}
+p{color:var(--muted2);line-height:1.7;font-size:0.97rem}
+.teal{color:var(--teal-glow)}
+hr.div{border:none;border-top:1px solid var(--border);margin:0 5%}
+
+.btn-primary{display:inline-block;background:var(--teal-glow);color:var(--black);padding:0.9rem 2.2rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.85rem;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;border:none;transition:all 0.2s}
+.btn-primary:hover{background:var(--teal-mid)}
+.btn-outline{display:inline-block;background:transparent;color:var(--teal-glow);padding:0.9rem 2.2rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.85rem;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;border:1px solid var(--teal-glow);transition:all 0.2s}
+.btn-outline:hover{background:rgba(45,212,191,0.08)}
+
+/* ══════════════════════════════════
+   NEW HERO — full-width text layout
+══════════════════════════════════ */
+.hero-full{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:6rem 5% 5rem;
+  position:relative;
+  overflow:hidden;
+  margin-top:-72px;
+}
+/* hero — full-bleed image */
+.hero-full .hero-video-bg{
+  position:absolute;inset:0;z-index:0;
+  background:#0b1f3a;
+}
+.hero-bg-img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center;
+  display:block;
+}
+.hero-full .hero-video-bg::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(4,8,16,0.65) 0%,rgba(11,31,58,0.55) 40%,rgba(11,31,58,0.65) 75%,rgba(4,8,16,0.92) 100%);
+}
+.hero-full-content{
+  position:relative;z-index:2;
+  max-width:860px;
+}
+.hero-label{
+  font-size:0.72rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--teal-glow);margin-bottom:1.5rem;
+  display:flex;align-items:center;justify-content:center;gap:0.75rem;
+}
+.hero-label::before,.hero-label::after{
+  content:'';display:inline-block;width:28px;height:1px;background:var(--teal-glow);
+}
+.hero-h1{
+  font-family:'Barlow Condensed',sans-serif;font-weight:900;
+  font-size:clamp(2.8rem,7vw,5.8rem);
+  line-height:0.95;letter-spacing:-0.01em;text-transform:uppercase;
+  margin-bottom:1.75rem;color:var(--white);
+  text-shadow:0 2px 24px rgba(4,8,16,0.85),0 1px 4px rgba(4,8,16,0.7);
+}
+.hero-h1 .accent{color:var(--teal-glow)}
+.hero-subhead{
+  font-size:clamp(1rem,2vw,1.2rem);
+  color:var(--muted2);line-height:1.7;
+  max-width:680px;margin:0 auto 2.75rem;font-weight:400;
+  text-shadow:0 1px 12px rgba(4,8,16,0.85);
+}
+.hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+
+/* teal line accent under hero */
+.hero-line{
+  width:60px;height:3px;background:var(--teal-glow);
+  margin:3rem auto 0;opacity:0.5;
+}
+
+/* STAT BAR — centered */
+.stat-bar{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border:1px solid var(--border);
+  max-width:900px;margin:0 auto;
+  width:calc(100% - 10%);
+}
+.stat-item{padding:2.25rem 1rem;text-align:center;border-right:1px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center}
+.stat-item:last-child{border-right:none}
+.stat-num{font-family:'Barlow Condensed',sans-serif;font-size:3.2rem;font-weight:900;color:var(--teal-glow);line-height:1;letter-spacing:-0.02em}
+.stat-label{font-size:0.68rem;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-top:0.5rem}
+
+/* MISSION / VISION */
+.mv-photo-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border)}
+.mv-block{background:var(--black);padding:3rem;position:relative;overflow:hidden}
+.mv-block h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.1rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal-glow);margin-bottom:1.25rem}
+
+/* VIDEO BANNER */
+.video-banner{position:relative;width:100%;height:380px;overflow:hidden}
+.video-banner video{width:100%;height:100%;object-fit:cover;opacity:0.35;filter:saturate(0.3) contrast(1.2)}
+.video-banner::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,var(--black) 0%,rgba(11,11,11,0.3) 50%,var(--black) 100%)}
+.video-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;z-index:2;padding:2rem}
+.video-overlay .vo-label{font-size:0.7rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--teal-glow);margin-bottom:1rem}
+
+/* ══════════════════════════════════
+   ABOUT — COLLAGE LAYOUT
+══════════════════════════════════ */
+.about-section{
+  padding:0;max-width:100%;
+  display:grid;grid-template-columns:1fr 1fr;
+  min-height:600px;
+}
+
+/* LEFT: photo collage with central emblem */
+.about-collage{
+  position:relative;overflow:hidden;
+  background:var(--black);
+}
+
+/* 3×2 photo grid underneath */
+.collage-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  grid-template-rows:1fr 1fr;
+  height:100%;gap:3px;
+}
+.collage-cell{overflow:hidden;position:relative}
+.collage-cell img{
+  width:100%;height:100%;object-fit:cover;
+  opacity:0.38;filter:saturate(0.25) contrast(1.2);
+  transition:opacity 0.5s;
+}
+.collage-cell:hover img{opacity:0.52}
+/* dark vignette on each cell */
+.collage-cell::after{
+  content:'';position:absolute;inset:0;
+  background:rgba(11,11,11,0.45);
+}
+
+/* Centre emblem overlay */
+.collage-emblem{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  z-index:10;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  width:160px;height:160px;
+  background:rgba(11,11,11,0.88);
+  border:1px solid rgba(45,212,191,0.35);
+  backdrop-filter:blur(8px);
+  box-shadow:0 0 60px rgba(45,212,191,0.12),0 0 120px rgba(15,118,110,0.08);
+}
+.emblem-ring{
+  position:absolute;inset:-8px;
+  border:1px solid rgba(45,212,191,0.12);
+}
+.emblem-ring2{
+  position:absolute;inset:-18px;
+  border:1px solid rgba(45,212,191,0.06);
+}
+.emblem-wordmark{
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:900;font-size:0.85rem;
+  letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--white);margin-top:0.5rem;
+}
+.emblem-tagline{
+  font-size:0.5rem;letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--teal-glow);margin-top:0.2rem;text-align:center;line-height:1.4;
+}
+
+/* teal vertical rule between collage and text */
+.about-collage::after{
+  content:'';position:absolute;
+  top:10%;right:0;bottom:10%;width:2px;
+  background:linear-gradient(180deg,transparent,var(--teal-glow),transparent);
+  z-index:5;
+}
+
+/* RIGHT: text */
+.about-text{
+  background:var(--black);
+  padding:4.5rem 4rem;
+  display:flex;flex-direction:column;justify-content:center;
+}
+.about-statement{
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;
+  font-size:1.55rem;line-height:1.25;color:var(--white);
+  text-transform:uppercase;letter-spacing:0.02em;
+  border-left:3px solid var(--teal-glow);
+  padding-left:1.5rem;margin-bottom:2rem;
+}
+
+/* SEGMENTS */
+.segment-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border)}
+.segment{background:var(--black);position:relative;overflow:hidden;min-height:340px;display:flex;flex-direction:column;justify-content:flex-end;align-items:stretch}
+.segment-bg{position:absolute;inset:0}
+.segment-bg img{width:100%;height:100%;object-fit:cover;opacity:0.22;filter:saturate(0.3) contrast(1.2);transition:opacity 0.4s,transform 0.6s}
+.segment:hover .segment-bg img{opacity:0.35;transform:scale(1.04)}
+.segment::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--teal),var(--teal-glow));z-index:2}
+.segment::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(11,11,11,0.95) 40%,rgba(11,11,11,0.2) 100%)}
+.segment-content{position:relative;z-index:3;padding:2rem;display:flex;flex-direction:column}
+.segment-content h3{min-height:3.2em;display:flex;align-items:flex-start}
+.seg-num{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2.5rem;color:rgba(45,212,191,0.12);line-height:1;margin-bottom:0.5rem}
+.seg-tag{font-size:0.65rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--teal-glow);margin-bottom:0.75rem}
+.segment h3{font-size:1rem;margin-bottom:0.5rem;color:var(--white)}
+
+/* TEAM */
+.founder-block{display:grid;grid-template-columns:auto 1fr;gap:3rem;align-items:start;background:var(--surface);border:1px solid var(--border);padding:3rem;margin-bottom:3rem}
+.founder-av{width:80px;height:80px;background:linear-gradient(135deg,var(--teal),var(--teal-glow));display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.6rem;color:var(--black);flex-shrink:0}
+.founder-bio p{font-size:0.9rem;color:var(--muted2);line-height:1.8;margin-bottom:1rem}
+.founder-bio p:last-child{margin-bottom:0}
+.founder-name{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.4rem;letter-spacing:0.04em;text-transform:uppercase;margin-bottom:0.25rem}
+.founder-title{font-size:0.7rem;color:var(--teal-glow);font-weight:600;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:1.5rem}
+.unit-tabs{display:flex;gap:0;margin-bottom:0;border-bottom:1px solid var(--border)}
+.unit-tab{padding:1rem 2rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.9rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;color:var(--muted);border-bottom:2px solid transparent;transition:all 0.2s;background:none;border-top:none;border-left:none;border-right:none}
+.unit-tab:hover{color:var(--white)}
+.unit-tab.active{color:var(--teal-glow);border-bottom:2px solid var(--teal-glow)}
+.unit-panel{display:none;background:var(--surface);border:1px solid var(--border);border-top:none;padding:3rem}
+.unit-panel.active{display:block}
+.unit-header{display:grid;grid-template-columns:auto 1fr;gap:2rem;align-items:start;margin-bottom:2.5rem;padding-bottom:2.5rem;border-bottom:1px solid var(--border)}
+.unit-icon{width:64px;height:64px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0}
+.unit-icon.se{background:rgba(15,118,110,0.15);border:1px solid rgba(45,212,191,0.3)}
+.unit-icon.so{background:rgba(99,102,241,0.1);border:1px solid rgba(99,102,241,0.3)}
+.unit-name{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.8rem;letter-spacing:0.04em;text-transform:uppercase;margin-bottom:0.25rem}
+.unit-subtitle{font-size:0.72rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--teal-glow);margin-bottom:0.75rem}
+.unit-desc{font-size:0.9rem;color:var(--muted2);line-height:1.7;max-width:680px}
+.team-comp-label{font-size:0.68rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-bottom:1.25rem;display:flex;align-items:center;gap:0.75rem}
+.team-comp-label::before{content:'';display:inline-block;width:16px;height:1px;background:var(--muted)}
+.role-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-bottom:2.5rem}
+.role-card{background:var(--black);padding:1.75rem;transition:background 0.2s}
+.role-card:hover{background:rgba(15,118,110,0.06)}
+.role-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1rem;letter-spacing:0.04em;text-transform:uppercase;color:var(--white);margin-bottom:0.4rem}
+.role-desc{font-size:0.82rem;color:var(--muted2);line-height:1.6}
+.role-dot{width:6px;height:6px;background:var(--teal-glow);display:inline-block;margin-bottom:0.75rem}
+.unit-quote{background:rgba(15,118,110,0.06);border-left:2px solid var(--teal-glow);padding:1.5rem 2rem;font-size:0.9rem;color:var(--muted2);line-height:1.7;font-style:italic}
+.positioning-block{background:var(--surface);border:1px solid var(--border2);border-top:2px solid var(--teal-glow);padding:3rem;text-align:center;margin-top:2rem;position:relative;overflow:hidden}
+.positioning-block::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(45,212,191,0.06) 0%,transparent 65%)}
+.pos-tagline{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(1.5rem,4vw,2.5rem);letter-spacing:0.04em;text-transform:uppercase;position:relative;margin-bottom:0.5rem}
+.pos-sub{font-size:1rem;color:var(--muted2);position:relative;margin-bottom:1.5rem}
+.pos-pills{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;position:relative}
+.pos-pill{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.85rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal-glow);padding:0.5rem 1.25rem;border:1px solid rgba(45,212,191,0.25)}
+
+/* BENEFITS */
+.benefits-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
+.benefit{background:var(--black);padding:2.5rem;transition:background 0.2s}
+.benefit:hover{background:rgba(15,118,110,0.05)}
+.benefit-num{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1rem;color:var(--teal-glow);letter-spacing:0.1em;margin-bottom:1rem}
+
+/* PROBLEMS */
+.prob-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.prob-card{background:var(--surface);border:1px solid var(--border);padding:2.5rem 2rem}
+.prob-x{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2.5rem;color:rgba(239,68,68,0.22);margin-bottom:1rem;line-height:1}
+
+/* PHOTO STRIP */
+.photo-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;overflow:hidden}
+.photo-strip-item{position:relative;height:260px;overflow:hidden}
+.photo-strip-item img{width:100%;height:100%;object-fit:cover;opacity:0.45;filter:saturate(0.25) contrast(1.2);transition:opacity 0.4s,transform 0.5s}
+.photo-strip-item:hover img{opacity:0.65;transform:scale(1.04)}
+.photo-strip-item::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(11,11,11,0.8) 0%,transparent 60%)}
+.strip-caption{position:absolute;bottom:1.25rem;left:1.25rem;z-index:2;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.95rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--white)}
+.strip-caption span{display:block;font-family:'Barlow',sans-serif;font-weight:400;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--teal-glow);margin-bottom:0.2rem}
+
+/* CTA BLOCK */
+.cta-block{background:var(--surface);border-top:2px solid var(--teal-glow);border-bottom:1px solid var(--border);padding:5rem;text-align:center;position:relative;overflow:hidden}
+.cta-block::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 100%,rgba(15,118,110,0.1) 0%,transparent 60%)}
+.cta-block h2,.cta-block p{position:relative}
+
+/* FUNNEL */
+.funnel{display:flex;align-items:stretch;gap:0;overflow-x:auto}
+.funnel-step{flex:1;min-width:130px;background:var(--surface);border:1px solid var(--border);border-right:none;padding:1.75rem 1.25rem;text-align:center;position:relative;clip-path:polygon(0 0,calc(100% - 16px) 0,100% 50%,calc(100% - 16px) 100%,0 100%)}
+.funnel-step:last-child{clip-path:none;border-right:1px solid var(--teal-glow)}
+.fs-num{font-size:0.65rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--teal-glow);margin-bottom:0.4rem}
+.fs-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1rem;letter-spacing:0.05em;text-transform:uppercase;color:var(--white);margin-bottom:0.3rem}
+.fs-sub{font-size:0.72rem;color:var(--muted)}
+
+/* PAGE HERO */
+.ph{padding:4rem 5% 3rem;border-bottom:1px solid var(--border)}
+.ph-inner{max-width:1280px;margin:0 auto}
+.ph h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(2.5rem,6vw,4rem);text-transform:uppercase;letter-spacing:0.02em;margin-bottom:0.75rem}
+
+/* PROGRAMS */
+.prog-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border)}
+.prog-card{background:var(--black);padding:2.5rem 2rem;position:relative;display:flex;flex-direction:column}
+.prog-card.featured{background:rgba(15,118,110,0.06);border-top:2px solid var(--teal-glow)}
+
+/* ═══════════ STEEL PLATE PROGRAM TIERS ═══════════ */
+:root{
+  --plate-sheen: 1;
+  --plate-engrave: 1;
+  --plate-rivets: block;
+}
+.steel-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:1.5rem}
+.steel-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:1.5rem}
+@media(max-width:900px){.steel-grid{grid-template-columns:repeat(2,1fr)}.steel-grid-3{grid-template-columns:1fr}}
+@media(max-width:560px){.steel-grid{grid-template-columns:1fr}}
+
+.plate{
+  position:relative;
+  padding:2.5rem 2rem 2rem;
+  border-radius:8px;
+  display:flex;flex-direction:column;
+  isolation:isolate;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,calc(0.35 * var(--plate-sheen))),
+    inset 0 -2px 4px rgba(0,0,0,0.55),
+    inset 0 0 0 1px rgba(0,0,0,0.4),
+    0 8px 24px -8px rgba(0,0,0,0.7),
+    0 2px 6px rgba(0,0,0,0.5);
+  overflow:hidden;
+  min-height:520px;
+}
+/* brushed-metal texture */
+.plate::before{
+  content:'';position:absolute;inset:0;z-index:-1;
+  background-image:
+    repeating-linear-gradient(90deg,
+      rgba(255,255,255,calc(0.04 * var(--plate-sheen))) 0px,
+      rgba(255,255,255,calc(0.04 * var(--plate-sheen))) 1px,
+      transparent 1px,transparent 2px),
+    repeating-linear-gradient(90deg,
+      rgba(0,0,0,0.06) 0px,
+      rgba(0,0,0,0.06) 1px,
+      transparent 1px,transparent 3px);
+  mix-blend-mode:overlay;
+  pointer-events:none;
+}
+/* moving sheen */
+.plate::after{
+  content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:linear-gradient(135deg,
+    transparent 35%,
+    rgba(255,255,255,calc(0.10 * var(--plate-sheen))) 48%,
+    rgba(255,255,255,calc(0.18 * var(--plate-sheen))) 50%,
+    rgba(255,255,255,calc(0.10 * var(--plate-sheen))) 52%,
+    transparent 65%);
+}
+/* Bronze (Launch) */
+.plate-bronze{background:linear-gradient(145deg,#a0633a 0%,#7a4623 30%,#5d3216 50%,#7a4623 75%,#a0633a 100%);color:#fde7c8}
+.plate-bronze .plate-tier{color:#3a1f08;text-shadow:0 1px 0 rgba(255,210,150,0.35),0 -1px 0 rgba(0,0,0,0.65)}
+/* Silver (Growth) */
+.plate-silver{background:linear-gradient(145deg,#cdd2d6 0%,#8d949b 30%,#5e6469 50%,#8d949b 75%,#cdd2d6 100%);color:#0f1216}
+.plate-silver .plate-tier{color:#1a1f25;text-shadow:0 1px 0 rgba(255,255,255,0.55),0 -1px 0 rgba(0,0,0,0.55)}
+/* Gold (Scale) */
+.plate-gold{background:linear-gradient(145deg,#f3d574 0%,#c69a2b 30%,#8a6611 50%,#c69a2b 75%,#f3d574 100%);color:#3a2906}
+.plate-gold .plate-tier{color:#2a1d04;text-shadow:0 1px 0 rgba(255,235,160,0.55),0 -1px 0 rgba(0,0,0,0.6)}
+/* Diamond (Elite) */
+.plate-diamond{background:linear-gradient(145deg,#f0fbff 0%,#9fd5e0 25%,#5d8e9c 50%,#9fd5e0 75%,#f0fbff 100%);color:#0a1f26}
+.plate-diamond .plate-tier{color:#0a2935;text-shadow:0 1px 0 rgba(255,255,255,0.7),0 -1px 0 rgba(0,0,0,0.45)}
+/* Teal (Bundle / CMS / Upgrades) */
+.plate-teal{background:linear-gradient(145deg,#7be3dd 0%,#2d9189 30%,#0d4a47 50%,#2d9189 75%,#7be3dd 100%);color:#03191a}
+.plate-teal .plate-tier{color:#012023;text-shadow:0 1px 0 rgba(180,240,235,0.55),0 -1px 0 rgba(0,0,0,0.6)}
+
+/* engraved label & tier */
+.plate-label{
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;
+  font-size:0.7rem;letter-spacing:0.32em;text-transform:uppercase;
+  margin-bottom:0.5rem;opacity:0.78;
+  text-shadow:
+    0 calc(1px * var(--plate-engrave)) 0 rgba(255,255,255,0.3),
+    0 calc(-1px * var(--plate-engrave)) 0 rgba(0,0,0,0.55);
+}
+.plate-tier{
+  font-family:'Barlow Condensed',sans-serif;font-weight:900;
+  font-size:2.6rem;line-height:1;letter-spacing:0.04em;text-transform:uppercase;
+  margin:0 0 0.4rem;
+  filter:drop-shadow(0 calc(1px * var(--plate-engrave)) 0 rgba(0,0,0,0.5));
+}
+.plate-product{
+  font-family:'Barlow Condensed',sans-serif;font-weight:600;
+  font-size:1.05rem;letter-spacing:0.06em;text-transform:uppercase;
+  opacity:0.85;margin-bottom:1.25rem;
+  text-shadow:
+    0 calc(1px * var(--plate-engrave)) 0 rgba(255,255,255,0.18),
+    0 calc(-1px * var(--plate-engrave)) 0 rgba(0,0,0,0.4);
+}
+.plate-divider{
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(0,0,0,0.5) 20%,rgba(0,0,0,0.5) 80%,transparent);
+  box-shadow:0 1px 0 rgba(255,255,255,calc(0.25 * var(--plate-sheen)));
+  margin:0 0 1.25rem;
+}
+.plate-desc{font-size:0.84rem;line-height:1.55;opacity:0.85;margin-bottom:1.25rem}
+.plate-features{list-style:none;padding:0;margin:0 0 1.5rem;flex:1}
+.plate-features li{
+  font-size:0.82rem;padding:0.45rem 0;
+  border-bottom:1px solid rgba(0,0,0,0.18);
+  box-shadow:0 1px 0 rgba(255,255,255,calc(0.18 * var(--plate-sheen)));
+  display:flex;gap:0.5rem;align-items:flex-start;opacity:0.92;
+}
+.plate-features li::before{content:'▸';opacity:0.6;flex-shrink:0}
+.plate-cta{
+  background:rgba(0,0,0,0.45);color:inherit;
+  border:1px solid rgba(0,0,0,0.5);
+  padding:0.75rem 1rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;
+  font-size:0.8rem;letter-spacing:0.18em;text-transform:uppercase;
+  cursor:pointer;border-radius:4px;
+  text-shadow:0 1px 0 rgba(0,0,0,0.6);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,calc(0.20 * var(--plate-sheen))),
+    inset 0 -1px 2px rgba(0,0,0,0.35),
+    0 2px 4px rgba(0,0,0,0.3);
+  color:#fff;
+  transition:transform 0.15s ease,box-shadow 0.15s ease;
+}
+.plate-cta:hover{transform:translateY(-1px);box-shadow:inset 0 1px 0 rgba(255,255,255,calc(0.30 * var(--plate-sheen))),inset 0 -1px 2px rgba(0,0,0,0.35),0 4px 8px rgba(0,0,0,0.4)}
+.plate-cta:active{transform:translateY(1px)}
+/* rivets */
+.rivet{
+  position:absolute;width:10px;height:10px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,rgba(255,255,255,0.7),rgba(120,120,120,0.4) 40%,rgba(0,0,0,0.7) 90%);
+  box-shadow:inset 0 -1px 1px rgba(0,0,0,0.5),0 1px 1px rgba(0,0,0,0.4);
+  display:var(--plate-rivets);
+}
+.rivet-tl{top:10px;left:10px}.rivet-tr{top:10px;right:10px}
+.rivet-bl{bottom:10px;left:10px}.rivet-br{bottom:10px;right:10px}
+
+/* "ELITE" / "DIAMOND" diamond crest */
+.plate-crest{
+  position:absolute;top:14px;right:34px;
+  font-size:0.6rem;letter-spacing:0.22em;font-weight:700;
+  font-family:'Barlow Condensed',sans-serif;
+  padding:0.25rem 0.6rem;
+  background:rgba(0,0,0,0.35);
+  color:rgba(255,255,255,0.85);
+  border:1px solid rgba(255,255,255,0.25);
+  border-radius:2px;
+}
+
+/* tweaks panel */
+#plate-tweaks{
+  position:fixed;right:20px;bottom:20px;z-index:1000;
+  background:rgba(11,31,58,0.96);color:#fff;
+  border:1px solid rgba(123,227,221,0.3);
+  padding:1.25rem;border-radius:8px;
+  font-family:'Barlow',sans-serif;font-size:0.82rem;
+  width:240px;
+  box-shadow:0 12px 40px -10px rgba(0,0,0,0.7);
+  display:none;
+}
+#plate-tweaks.open{display:block}
+#plate-tweaks h4{margin:0 0 0.75rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;font-size:0.78rem;color:var(--teal-glow)}
+#plate-tweaks label{display:flex;justify-content:space-between;align-items:center;gap:0.5rem;margin:0.5rem 0;cursor:pointer}
+#plate-tweaks input[type=range]{flex:1;accent-color:var(--teal-glow)}
+#plate-tweaks .pt-close{position:absolute;top:8px;right:10px;background:none;border:0;color:#fff;font-size:1.1rem;cursor:pointer;opacity:0.6}
+#plate-tweaks .pt-close:hover{opacity:1}
+.prog-badge{display:inline-block;font-size:0.65rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;padding:0.25rem 0.75rem;margin-bottom:1rem}
+.b-bronze{background:rgba(180,83,9,0.15);color:#F59E0B}
+.b-silver{background:rgba(107,114,128,0.15);color:#CBD5E1}
+.b-gold{background:rgba(180,150,0,0.15);color:#FCD34D}
+.b-elite{background:rgba(45,212,191,0.1);color:var(--teal-glow);border:1px solid rgba(45,212,191,0.3)}
+.prog-features{list-style:none;margin:1.25rem 0 1.75rem;flex:1}
+.prog-features li{font-size:0.85rem;color:var(--muted2);padding:0.45rem 0;border-bottom:1px solid rgba(255,255,255,0.04);display:flex;gap:0.5rem}
+.prog-features li::before{content:'—';color:var(--teal-glow);flex-shrink:0}
+.featured-label{position:absolute;top:0;left:50%;transform:translate(-50%,-50%);background:var(--teal-glow);color:var(--black);font-size:0.62rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:0.2rem 0.9rem;white-space:nowrap}
+
+/* REMOTE */
+.rp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:var(--border);margin-bottom:3rem}
+.rp-point{background:var(--black);padding:2rem;display:flex;gap:1rem;align-items:flex-start}
+.rp-icon{width:36px;height:36px;background:rgba(15,118,110,0.2);border:1px solid rgba(45,212,191,0.25);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:0.75rem;color:var(--teal-glow);flex-shrink:0}
+.remote-video-wrap{position:relative;height:420px;overflow:hidden;margin-bottom:4rem}
+.remote-video-wrap video{width:100%;height:100%;object-fit:cover;opacity:0.3;filter:saturate(0.3) contrast(1.2)}
+.remote-video-wrap::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,var(--black) 0%,rgba(11,11,11,0.2) 50%,var(--black) 100%),linear-gradient(0deg,var(--black) 0%,transparent 30%)}
+.remote-video-content{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:5% 5%;max-width:600px;z-index:2}
+
+/* OFFERS */
+.offer-hero{background:var(--surface);border:1px solid var(--border2);border-top:3px solid var(--teal-glow);padding:4rem;text-align:center;position:relative;overflow:hidden;margin-bottom:2rem}
+.offer-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(45,212,191,0.06) 0%,transparent 60%)}
+.offer-tag{display:inline-block;background:var(--teal-glow);color:var(--black);font-size:0.65rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;padding:0.3rem 1rem;margin-bottom:1.5rem}
+.cs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.cs-card{background:var(--surface);border:1px solid var(--border);padding:1.5rem;text-align:center;opacity:0.65}
+.cs-card h4{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:0.25rem}
+.cs-soon{font-size:0.62rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--teal);margin-bottom:0.5rem;display:block}
+
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:5rem;align-items:start}
+.form-group{margin-bottom:1.5rem}
+.form-group label{display:block;font-size:0.68rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem}
+.form-group input,.form-group textarea,.form-group select{width:100%;background:var(--surface);border:1px solid var(--border);border-top:none;border-left:none;color:var(--white);padding:0.9rem 1rem;font-family:'Barlow',sans-serif;font-size:0.95rem;outline:none;transition:border-color 0.2s}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--teal-glow)}
+.form-group textarea{min-height:130px;resize:vertical}
+.form-group select option{background:var(--black)}
+.next-steps{display:flex;flex-direction:column;gap:1.5rem}
+.ns-item{display:flex;gap:1.25rem;align-items:flex-start}
+.ns-num{width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:0.85rem;color:var(--teal-glow);border:1px solid rgba(45,212,241,0.3);flex-shrink:0;letter-spacing:0.05em}
+.ns-num.filled{background:var(--teal-glow);color:var(--black);border-color:var(--teal-glow)}
+
+.paths{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:4rem}
+.path-card{background:var(--surface);border:1px solid var(--border);padding:2.5rem}
+.path-card.recommended{border-color:rgba(45,212,191,0.4);background:rgba(15,118,110,0.05)}
+.path-label{font-size:0.65rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--teal-glow);margin-bottom:1rem}
+.path-steps{display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;margin-top:1.5rem}
+.ps{font-size:0.72rem;background:rgba(15,118,110,0.15);color:var(--teal-glow);padding:0.3rem 0.75rem;border:1px solid rgba(45,212,191,0.2)}
+.pa{color:var(--teal-glow);font-size:0.8rem}
+
+footer{border-top:1px solid var(--border);padding:3rem 5%;margin-top:5rem}
+.foot-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:auto 1fr auto;gap:3rem;align-items:center}
+.foot-brand{display:flex;align-items:center;gap:10px}
+.foot-tagline{font-size:0.72rem;color:var(--muted);letter-spacing:0.08em;margin-top:0.3rem}
+.foot-links{display:flex;gap:2rem;list-style:none;justify-content:center}
+.foot-links a{color:var(--muted);text-decoration:none;font-size:0.78rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;transition:color 0.2s}
+.foot-links a:hover{color:var(--teal-glow)}
+.foot-bottom{border-top:1px solid var(--border);margin-top:2rem;padding-top:1.5rem;display:flex;justify-content:space-between;font-size:0.72rem;color:var(--muted);max-width:1280px;margin-left:auto;margin-right:auto}
+
+/* OFFER NARRATIVE (offers page description) */
+.offer-narrative{max-width:1100px;margin:0 auto}
+.offer-narrative-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-bottom:3rem}
+.offer-narrative-col{background:rgba(11,11,11,0.55);border:1px solid var(--border);border-top:2px solid var(--teal-glow);padding:2.5rem;position:relative}
+.ono-icon{width:56px;height:56px;color:var(--teal-glow);background:rgba(15,118,110,0.12);border:1px solid rgba(45,212,191,0.3);display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem}
+.ono-icon svg{width:30px;height:30px}
+.offer-narrative-pills{display:flex;align-items:center;justify-content:center;gap:0.85rem;flex-wrap:wrap;padding:2rem;background:var(--black);border:1px solid var(--border);border-top:1px solid rgba(45,212,191,0.3)}
+.onp{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.05rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--white);padding:0.65rem 1.4rem;border:1px solid rgba(45,212,191,0.35);background:rgba(15,118,110,0.08)}
+.onp-arrow{color:var(--teal-glow);font-weight:700;font-size:1.1rem}
+
+/* REMOTE SYSTEMS PAGE */
+.rs-hero{position:relative;overflow:hidden;min-height:640px;display:flex;align-items:center;justify-content:center;padding:5rem 5%;text-align:center}
+.rs-hero-bg{position:absolute;inset:0;z-index:0}
+.rs-hero-bg img{width:100%;height:100%;object-fit:cover;opacity:0.32;filter:saturate(0.4) contrast(1.15)}
+.rs-hero-scrim{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 60%,rgba(15,118,110,0.18) 0%,transparent 60%),linear-gradient(0deg,var(--black) 0%,rgba(11,11,11,0.55) 50%,var(--black) 100%)}
+.rs-hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(45,212,191,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(45,212,191,0.06) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(ellipse at 50% 50%,#000 0%,transparent 75%)}
+.rs-hero-content{position:relative;z-index:2;max-width:960px}
+.rs-hero-meta{display:inline-block;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.78rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted2);border:1px solid rgba(45,212,191,0.25);background:rgba(15,118,110,0.08);padding:0.55rem 1.2rem;margin-bottom:2rem}
+.rs-hero-meta .rs-arr{color:var(--teal-glow);margin:0 0.5rem;font-weight:900}
+.rs-hero-h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(2.4rem,5.5vw,4rem);text-transform:uppercase;letter-spacing:0.01em;line-height:1;margin-bottom:1.25rem}
+.rs-hero-sub{max-width:640px;margin:0 auto 2.5rem;font-size:1.02rem;line-height:1.65;color:var(--muted2)}
+.rs-hero-ctas{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:3.5rem}
+.rs-hero-stats{display:flex;justify-content:center;gap:3rem;flex-wrap:wrap;border-top:1px solid var(--border);padding-top:2rem;max-width:600px;margin:0 auto}
+.rs-hero-stats>div{display:flex;flex-direction:column;align-items:center}
+.rs-hero-stats strong{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2rem;color:var(--teal-glow);line-height:1}
+.rs-hero-stats span{font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-top:0.4rem}
+
+/* PROBLEM */
+.rs-prob-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);margin-bottom:1rem}
+.rs-prob-card{background:var(--black);padding:2.5rem 2rem;display:flex;flex-direction:column;gap:1rem}
+.rs-prob-icon{width:56px;height:56px;color:var(--teal-glow);background:rgba(15,118,110,0.1);border:1px solid rgba(45,212,191,0.25);display:flex;align-items:center;justify-content:center}
+.rs-prob-icon svg{width:30px;height:30px}
+.rs-prob-card h3{font-size:1.05rem;letter-spacing:0.04em}
+.rs-prob-card p{font-size:0.88rem;color:var(--muted2);line-height:1.6}
+
+/* POSITIONING */
+.rs-pos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-bottom:3rem}
+.rs-pos-card{background:rgba(11,11,11,0.6);border:1px solid var(--border);border-top:2px solid var(--teal-glow);padding:2.25rem;position:relative}
+.rs-pos-num{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.6rem;color:var(--teal-glow);letter-spacing:0.05em;margin-bottom:1rem}
+.rs-pos-card h3{font-size:1.15rem;margin-bottom:0.6rem}
+.rs-pos-card p{font-size:0.9rem;color:var(--muted2);line-height:1.6}
+.rs-tagline{text-align:center;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:clamp(1.3rem,2.6vw,1.85rem);letter-spacing:0.02em;color:var(--white);padding:2.25rem;border-top:1px solid rgba(45,212,191,0.3);border-bottom:1px solid rgba(45,212,191,0.3);background:linear-gradient(90deg,transparent,rgba(15,118,110,0.08),transparent);font-style:italic}
+
+/* JOURNEY STEPS */
+.rs-steps{display:flex;flex-direction:column;gap:1.25rem}
+.rs-step{display:grid;grid-template-columns:auto 1fr;gap:1.5rem;background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--teal-glow);padding:2rem 2.25rem;transition:border-color 0.2s,transform 0.2s}
+.rs-step:hover{border-left-color:#5eead4;transform:translateX(4px)}
+.rs-step-rail{display:flex;align-items:flex-start}
+.rs-step-num{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2.6rem;color:rgba(45,212,191,0.45);line-height:1;letter-spacing:0.02em}
+.rs-step-tag{display:inline-block;font-size:0.62rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;padding:0.3rem 0.85rem;margin-bottom:0.85rem}
+.rs-tag-free{background:var(--teal-glow);color:var(--black)}
+.rs-tag-opt{background:rgba(15,118,110,0.15);color:var(--teal-glow);border:1px solid rgba(45,212,191,0.35)}
+.rs-step h3{font-size:1.5rem;margin-bottom:1.25rem}
+.rs-step-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
+.rs-step-label{font-size:0.62rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--teal-glow);margin-bottom:0.5rem}
+.rs-step-grid p{font-size:0.85rem;color:var(--muted2);line-height:1.55;margin:0}
+.rs-out{color:var(--white) !important;font-weight:600;font-style:italic}
+
+/* HOW YOU EARN */
+.rs-earn-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:3rem;align-items:center}
+.rs-earn-bar{display:flex;height:88px;border:1px solid var(--border);overflow:hidden;background:var(--black)}
+.rs-earn-you{background:linear-gradient(90deg,rgba(15,118,110,0.5),rgba(45,212,191,0.6));display:flex;align-items:center;justify-content:center;color:var(--white);font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;letter-spacing:0.08em;text-transform:uppercase;border-right:1px solid var(--teal-glow)}
+.rs-earn-you strong{font-size:1.6rem;margin:0 0.4rem;color:var(--white)}
+.rs-earn-strat{background:rgba(11,11,11,0.7);display:flex;align-items:center;justify-content:center;color:var(--muted2);font-family:'Barlow Condensed',sans-serif;font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;text-align:center;padding:0 0.4rem}
+.rs-earn-strat strong{display:block;font-size:1.2rem;color:var(--teal-glow)}
+.rs-earn-points{display:flex;flex-direction:column;gap:1.25rem}
+.rs-earn-point{display:flex;gap:1rem;align-items:flex-start}
+.rs-earn-icon{width:44px;height:44px;color:var(--teal-glow);background:rgba(15,118,110,0.1);border:1px solid rgba(45,212,191,0.25);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.rs-earn-icon svg{width:24px;height:24px}
+.rs-earn-point h4{font-size:0.98rem;margin-bottom:0.3rem}
+.rs-earn-point p{font-size:0.85rem;color:var(--muted2);line-height:1.55}
+
+/* PRIORITY */
+.rs-priority{display:flex;flex-direction:column;gap:1rem}
+.rs-pri-row{display:grid;grid-template-columns:80px 1fr 280px;gap:2rem;align-items:center;background:var(--surface);border:1px solid var(--border);padding:1.75rem 2rem}
+.rs-pri-1{border-left:3px solid var(--teal-glow)}
+.rs-pri-2{border-left:3px solid rgba(45,212,191,0.5)}
+.rs-pri-3{border-left:3px solid rgba(45,212,191,0.25)}
+.rs-pri-rank{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2.4rem;color:var(--teal-glow);letter-spacing:0.02em;line-height:1}
+.rs-pri-tag{display:inline-block;font-size:0.6rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--teal-glow);margin-bottom:0.4rem;background:rgba(15,118,110,0.15);padding:0.25rem 0.7rem;border:1px solid rgba(45,212,191,0.25)}
+.rs-pri-body h3{font-size:1.15rem;margin-bottom:0.3rem}
+.rs-pri-body p{font-size:0.87rem;color:var(--muted2);margin:0}
+.rs-pri-bar{height:8px;background:rgba(11,11,11,0.7);border:1px solid var(--border);overflow:hidden}
+.rs-pri-bar>div{height:100%;background:linear-gradient(90deg,rgba(15,118,110,0.6),var(--teal-glow))}
+
+/* DIFFERENT */
+.rs-diff-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;background:var(--border)}
+.rs-diff{background:var(--black);padding:2rem;display:flex;gap:1.25rem;align-items:flex-start}
+.rs-diff-x,.rs-diff-eq{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2.4rem;line-height:1;flex-shrink:0}
+.rs-diff-x{color:#dc2626;opacity:0.7}
+.rs-diff-eq{color:var(--teal-glow)}
+.rs-diff h3{font-size:1.05rem;margin-bottom:0.4rem}
+.rs-diff p{font-size:0.87rem;color:var(--muted2);line-height:1.55}
+
+/* CONTROL */
+.rs-control-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--border)}
+.rs-ctl{background:var(--black);padding:2rem 1.5rem;text-align:center}
+.rs-ctl-ico{width:48px;height:48px;margin:0 auto 1rem;color:var(--teal-glow);background:rgba(15,118,110,0.12);border:1px solid rgba(45,212,191,0.3);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.4rem}
+.rs-ctl h4{font-size:1rem;margin-bottom:0.4rem}
+.rs-ctl p{font-size:0.82rem;color:var(--muted2);line-height:1.5}
+
+/* FIT */
+.rs-fit-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.rs-fit{background:var(--surface);border:1px solid var(--border);padding:2.5rem}
+.rs-fit-yes{border-top:2px solid var(--teal-glow)}
+.rs-fit-no{border-top:2px solid #dc2626;opacity:0.92}
+.rs-fit-head{display:flex;gap:1rem;align-items:center;margin-bottom:1.75rem}
+.rs-fit-mark{width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.5rem}
+.rs-fit-yes .rs-fit-mark{background:var(--teal-glow);color:var(--black)}
+.rs-fit-no .rs-fit-mark{background:rgba(220,38,38,0.15);color:#ef4444;border:1px solid rgba(220,38,38,0.4)}
+.rs-fit h3{font-size:1.2rem}
+.rs-fit ul{list-style:none;display:flex;flex-direction:column;gap:0.85rem}
+.rs-fit li{font-size:0.92rem;color:var(--muted2);line-height:1.55;padding-left:1.25rem;position:relative}
+.rs-fit-yes li::before{content:'';position:absolute;left:0;top:0.55rem;width:8px;height:8px;background:var(--teal-glow);transform:rotate(45deg)}
+.rs-fit-no li::before{content:'';position:absolute;left:0;top:0.6rem;width:8px;height:1.5px;background:#ef4444}
+
+/* NOTES */
+.rs-notes{display:flex;flex-direction:column;gap:1rem;max-width:840px}
+.rs-note{display:flex;gap:1.25rem;background:var(--surface);border:1px solid var(--border);border-left:2px solid rgba(45,212,191,0.5);padding:1.5rem 1.75rem;align-items:flex-start}
+.rs-note-ico{width:36px;height:36px;color:var(--teal-glow);flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.rs-note-ico svg{width:28px;height:28px}
+.rs-note strong{display:block;font-size:1rem;margin-bottom:0.3rem;color:var(--white)}
+.rs-note p{font-size:0.87rem;color:var(--muted2);line-height:1.55;margin:0}
+
+/* FINAL CTA */
+.rs-final-cta{position:relative;overflow:hidden;border:1px solid rgba(45,212,191,0.3);border-top:3px solid var(--teal-glow);background:var(--surface);padding:5rem 3rem;text-align:center}
+.rs-final-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(15,118,110,0.18) 0%,transparent 65%),linear-gradient(135deg,transparent 49.5%,rgba(45,212,191,0.05) 49.5%,rgba(45,212,191,0.05) 50.5%,transparent 50.5%);background-size:auto,40px 40px}
+.rs-final-inner{position:relative;z-index:2}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.page.active>*{animation:fadeUp 0.45s ease forwards}
+
+@media(max-width:900px){
+  .units-grid{grid-template-columns:1fr !important}
+  .about-section,.contact-grid,.foot-inner{grid-template-columns:1fr}
+  .segment-grid,.prog-grid,.mv-photo-grid{grid-template-columns:1fr 1fr}
+  .benefits-grid,.photo-strip,.prob-grid,.paths,.cs-grid{grid-template-columns:1fr}
+  .rs-prob-grid,.rs-control-grid{grid-template-columns:1fr 1fr}
+  .rs-pos-grid{grid-template-columns:1fr}
+  .rs-step{grid-template-columns:1fr;gap:0.5rem}
+  .rs-step-grid{grid-template-columns:1fr 1fr;gap:1rem}
+  .rs-earn-grid,.rs-fit-grid,.offer-narrative-grid{grid-template-columns:1fr;gap:1.5rem}
+  .rs-pri-row{grid-template-columns:60px 1fr;gap:1rem}
+  .rs-pri-bar{grid-column:1 / -1}
+  .role-grid{grid-template-columns:1fr 1fr}
+  .stat-bar{grid-template-columns:1fr 1fr;width:calc(100% - 10%)}
+  .stat-item{border-right:none;border-bottom:1px solid var(--border)}
+  .funnel{flex-direction:column}
+  .funnel-step{clip-path:none;border-right:1px solid var(--border);border-bottom:none}
+  .founder-block{grid-template-columns:1fr}
+  .unit-header{grid-template-columns:1fr}
+  .hero-full{padding:4rem 5%}
+  .collage-grid{grid-template-columns:1fr 1fr;grid-template-rows:repeat(3,1fr)}
+  .about-collage::after{display:none}
+}
+</style>
+
+<style>
+/* Fallback bg textures where Pexels videos used to sit */
+.hero-video-bg{background:radial-gradient(ellipse at 30% 20%,rgba(63,182,176,0.08) 0%,transparent 55%),radial-gradient(ellipse at 70% 80%,rgba(11,31,58,0.6) 0%,transparent 60%),linear-gradient(180deg,var(--navy-3) 0%,var(--navy) 60%,var(--black) 100%)}
+.video-banner{background:linear-gradient(135deg,var(--navy-3) 0%,var(--navy) 50%,var(--black) 100%)}
+.video-banner::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(123,227,221,0.025) 0 2px,transparent 2px 12px);pointer-events:none}
+.remote-video-wrap{background:radial-gradient(ellipse at 20% 50%,rgba(63,182,176,0.10) 0%,transparent 55%),linear-gradient(135deg,var(--navy) 0%,var(--black) 100%)}
+.page > div[style*="height:320px"]{background:linear-gradient(135deg,var(--navy-3) 0%,var(--navy) 50%,var(--black) 100%)}
+.page > div[style*="min-height:280px"],.page > div[style*="min-height:300px"]{background:linear-gradient(135deg,var(--navy-3) 0%,var(--navy) 60%,var(--black) 100%)}
+</style>
+</head>
+<body>
+
+<svg style="display:none">
+  <defs>
+    <linearGradient id="steelG" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#9BAAB8"/><stop offset="50%" stop-color="#D0DCE8"/><stop offset="100%" stop-color="#5A6B7C"/>
+    </linearGradient>
+    <linearGradient id="tealG" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0%" stop-color="#3FB6B0"/><stop offset="100%" stop-color="#7BE3DD"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-brand" onclick="showPage('home')">
+      <img src="assets/stratvya-logo.png" alt="Stratvya" style="height:42px;width:auto;display:block;filter:drop-shadow(0 2px 8px rgba(0,0,0,0.5))">
+    </div>
+    <ul class="nav-links">
+      <li><a href="#" class="nav-link active" data-page="home">Home</a></li>
+      <li><a href="#" class="nav-link" data-page="programs">Programs</a></li>
+      <li><a href="#" class="nav-link" data-page="remote">Remote Systems</a></li>
+      <li><a href="#" class="nav-link" data-page="offers">Offers</a></li>
+      <li><a href="#" class="nav-link" data-page="contact">Contact</a></li>
+    </ul>
+    <button class="nav-cta" onclick="showPage('contact')">Free Audit</button>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     HOME
+══════════════════════════════════════════ -->
+<div id="page-home" class="page active">
+
+<!-- ── NEW HERO ── -->
+<div class="alt-navy"><div class="hero-full">
+  <div class="hero-video-bg">
+    <img class="hero-bg-img" src="hero-conference.png" alt="Team in modern conference room with video call grid on wall-mounted screen">
+  </div>
+  <div class="hero-full-content">
+    <div class="hero-label">Engineered Operations & Scaling Solutions</div>
+    <h1 class="hero-h1">
+      We Build the Systems<br>
+      That <span class="accent">Grow Your Business</span>
+    </h1>
+    <p class="hero-subhead">
+      From idea to scale, we design and run the marketing, sales, and operations systems that turn your business into a structured, revenue-generating machine.
+    </p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="showPage('contact')">Apply for Free Business Growth Audit</button>
+      <button class="btn-outline" onclick="showPage('programs')">View Programs</button>
+    </div>
+    <div class="hero-line"></div>
+  </div>
+</div>
+</div>
+
+<!-- STAT BAR — CENTERED -->
+<div class="alt-black" style="padding:3rem 0;display:flex;justify-content:center">
+  <div class="stat-bar">
+    <div class="stat-item"><div class="stat-num">4</div><div class="stat-label">Business Segments</div></div>
+    <div class="stat-item"><div class="stat-num">3</div><div class="stat-label">Problems Eliminated</div></div>
+    <div class="stat-item"><div class="stat-num">5</div><div class="stat-label">Key Benefits</div></div>
+    <div class="stat-item"><div class="stat-num">1</div><div class="stat-label">End-to-End Partner</div></div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- MISSION / VISION -->
+<section>
+  <div class="section-label">Purpose & Direction</div>
+  <div class="mv-photo-grid">
+    <div class="mv-block" style="position:relative;overflow:hidden">
+      <div style="position:absolute;inset:0;z-index:0"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=70&fit=crop" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.08;filter:saturate(0)"></div>
+      <div style="position:relative;z-index:1"><h3>Mission</h3><p>To help brands transform ideas into structured, scalable, and revenue-generating businesses by combining strategic guidance with hands-on execution across every stage of growth.</p></div>
+    </div>
+    <div class="mv-block" style="position:relative;overflow:hidden">
+      <div style="position:absolute;inset:0;z-index:0"><img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=800&q=70&fit=crop" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.08;filter:saturate(0)"></div>
+      <div style="position:relative;z-index:1"><h3>Vision</h3><p>To become a trusted long-term growth partner for emerging businesses worldwide — known for building sustainable systems, driving measurable results, and turning vision into lasting success.</p></div>
+    </div>
+  </div>
+</section>
+
+<hr class="div">
+
+<!-- WHAT WE DO -->
+<div class="alt-black" style="margin:0;padding:0;position:relative;overflow:hidden"><div class="video-banner">
+    
+    <div class="video-overlay"><div class="vo-label">What We Do</div><h2>Design. Build. <span class="teal">Scale.</span></h2></div>
+  </div>
+</div>
+<section style="padding-top:3rem">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;margin-bottom:3rem">
+    <div><p style="font-size:1.05rem;line-height:1.8">Stratvya designs, builds, and scales business systems across marketing, sales, and operations. We don't just advise — we embed ourselves as a long-term partner at every stage.</p></div>
+    <div><p>Every engagement results in tangible infrastructure: lead generation engines, sales pipelines, operational frameworks, and revenue systems that compound over time.</p></div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)">
+    <div style="background:var(--black);padding:2.5rem"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:3rem;color:rgba(45,212,191,0.08);line-height:1;margin-bottom:0.75rem">01</div><h3 style="margin-bottom:0.75rem">Design</h3><p style="font-size:0.9rem">We map your business architecture — identifying gaps, bottlenecks, and untapped growth vectors with precision.</p></div>
+    <div style="background:var(--black);padding:2.5rem;border-left:1px solid var(--border);border-right:1px solid var(--border)"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:3rem;color:rgba(45,212,191,0.08);line-height:1;margin-bottom:0.75rem">02</div><h3 style="margin-bottom:0.75rem">Build</h3><p style="font-size:0.9rem">We construct the systems — funnels, pipelines, SOPs, and operational frameworks — from the ground up.</p></div>
+    <div style="background:var(--black);padding:2.5rem"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:3rem;color:rgba(45,212,191,0.08);line-height:1;margin-bottom:0.75rem">03</div><h3 style="margin-bottom:0.75rem">Scale</h3><p style="font-size:0.9rem">We operate, optimize, and expand — driving consistent, compounding revenue growth over the long term.</p></div>
+  </div>
+</section>
+
+<hr class="div">
+
+<!-- ══════════════════════════════════════════
+     ABOUT — COLLAGE + TEXT (no founder photo)
+══════════════════════════════════════════ -->
+<div class="about-section alt-navy">
+
+  <!-- LEFT: photo collage -->
+  <div class="about-collage">
+    <div class="collage-grid">
+      <!-- 6 curated remote-work / team photos -->
+      <div class="collage-cell">
+        <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=500&q=70&fit=crop" alt="Remote team working" loading="lazy">
+      </div>
+      <div class="collage-cell">
+        <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=500&q=70&fit=crop" alt="Team collaboration" loading="lazy">
+      </div>
+      <div class="collage-cell">
+        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=500&q=70&fit=crop" alt="Strategy session" loading="lazy">
+      </div>
+      <div class="collage-cell">
+        <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=500&q=70&fit=crop" alt="Remote professional" loading="lazy">
+      </div>
+      <div class="collage-cell">
+        <img src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=500&q=70&fit=crop" alt="Startup team" loading="lazy">
+      </div>
+      <div class="collage-cell">
+        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=500&q=70&fit=crop" alt="Business planning" loading="lazy">
+      </div>
+    </div>
+
+    <!-- Central Stratvya logo -->
+    <div class="collage-emblem" style="width:220px;height:220px;background:rgba(11,31,58,0.92);border:1px solid rgba(123,227,221,0.35);padding:1.25rem">
+      <div class="emblem-ring"></div>
+      <div class="emblem-ring2"></div>
+      <img src="assets/stratvya-logo.png" alt="Stratvya" style="width:100%;height:100%;object-fit:contain;display:block">
+    </div>
+  </div>
+
+  <!-- RIGHT: About text -->
+  <div class="about-text">
+    <div class="section-label" style="margin-bottom:1.5rem">About Stratvya</div>
+    <div class="about-statement">An online business growth studio built for founders who want results — not just support.</div>
+    <p style="margin-bottom:1.5rem">Our work goes beyond traditional virtual assistance. We partner with startups and digital brands to transform ideas into fully operational, revenue-generating businesses, and guide them through every critical stage of growth — from launch to scale.</p>
+    <p style="margin-bottom:1.5rem">By combining strategy, systems, and execution, we help our clients build strong foundations, streamline operations, and create sustainable growth. Whether it's validating a concept, setting up workflows, optimizing sales processes, or scaling operations, we embed ourselves as a long-term partner in the business journey.</p>
+    <p style="color:var(--teal-glow);font-weight:500;margin-bottom:2rem">We don't just complete tasks — we build businesses that are structured, scalable, and designed to last.</p>
+    <button class="btn-outline" onclick="showPage('contact')">Work With Us</button>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- WHO WE HELP -->
+<section>
+  <div class="section-label">Who We Help</div>
+  <h2 style="margin-bottom:3rem">Built for every stage <span class="teal">of business</span></h2>
+  <div class="segment-grid">
+    <div class="segment"><div class="segment-bg"><img src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=600&q=70&fit=crop" alt="" loading="lazy"></div><div class="segment-content"><div class="seg-num">01</div><div class="seg-tag">Startups</div><h3>We build your business from scratch</h3><p style="margin-top:0.4rem;font-size:0.85rem">No foundation? We lay it. Systems, strategy, and structure built for growth from day one.</p></div></div>
+    <div class="segment"><div class="segment-bg"><img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=70&fit=crop" alt="" loading="lazy"></div><div class="segment-content"><div class="seg-num">02</div><div class="seg-tag">Struggling Businesses</div><h3>We fix what's not working</h3><p style="margin-top:0.4rem;font-size:0.85rem">Revenue inconsistent. Operations chaotic. We diagnose, restructure, and rebuild for stability.</p></div></div>
+    <div class="segment"><div class="segment-bg"><img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=70&fit=crop" alt="" loading="lazy"></div><div class="segment-content"><div class="seg-num">03</div><div class="seg-tag">Growing Businesses</div><h3>We scale your systems and revenue</h3><p style="margin-top:0.4rem;font-size:0.85rem">You have traction. Now you need infrastructure. We turn growth into scale.</p></div></div>
+    <div class="segment"><div class="segment-bg"><img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&q=70&fit=crop" alt="" loading="lazy"></div><div class="segment-content"><div class="seg-num">04</div><div class="seg-tag">Freelancers & VAs</div><h3>We train and provide opportunities</h3><p style="margin-top:0.4rem;font-size:0.85rem">Structured training, system-based skills, and direct placement with high-performance clients.</p></div></div>
+  </div>
+</section>
+
+<hr class="div">
+
+<!-- TEAM -->
+<section>
+  <div class="section-label">Leadership & Team</div>
+  <h2 style="margin-bottom:2rem">The people behind <span class="teal">the systems</span></h2>
+  <div class="founder-block" style="grid-template-columns:280px 1fr;gap:3rem;align-items:start">
+    <div style="position:relative;width:100%;aspect-ratio:4/5;overflow:hidden;border:1px solid var(--border2);background:var(--navy)">
+      <img src="assets/jessica-portrait.png" alt="Jessica, Founder" style="width:100%;height:100%;object-fit:cover;display:block">
+      <div style="position:absolute;left:0;right:0;bottom:0;height:40%;background:linear-gradient(0deg,rgba(11,31,58,0.95) 0%,transparent 100%);pointer-events:none"></div>
+      <div style="position:absolute;top:1rem;left:1rem;font-size:0.62rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--teal-glow);background:rgba(4,8,16,0.7);padding:0.35rem 0.75rem;border:1px solid rgba(123,227,221,0.3)">Founder</div>
+    </div>
+    <div class="founder-bio">
+      <div class="founder-name">Jessica</div>
+      <div class="founder-title">Founder & Owner — Stratvya</div>
+      <p>At the core of Stratvya is a simple belief: businesses don't fail because of lack of effort — they fail because of lack of systems.</p>
+      <p>As the Founder of Stratvya, I focus on one thing: building the structure behind business growth. Not just ideas, not just strategies — but the actual systems that generate leads, convert clients, and scale operations.</p>
+      <p>Stratvya was created to bridge the gap between strategy and execution. Most businesses either get advice with no implementation, or execution without direction. We do both — because real growth requires both.</p>
+      <p>My role is to ensure every client has clarity on what's broken, a clear path forward, and the systems needed to move from idea to scale. From startups to growing companies, the goal is always the same: turn businesses into structured, revenue-generating machines.</p>
+    </div>
+  </div>
+
+  <div class="units-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:2.5rem">
+    <div class="unit-static" style="background:var(--surface);border:1px solid var(--border);border-top:2px solid var(--teal-glow);padding:2.5rem">
+      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem">
+        <div class="unit-icon se" style="font-size:1.6rem;width:52px;height:52px">⚙️</div>
+        <div>
+          <div class="unit-name" style="font-size:1.4rem">Stratvya Engineers</div>
+          <div class="unit-subtitle" style="margin-bottom:0">The Builders — Systems, Structure & Strategy</div>
+        </div>
+      </div>
+      <p class="unit-desc" style="margin-bottom:1.75rem">Stratvya Engineers are the architects of business growth. They design, build, and optimize the systems that make a business work — from lead generation to sales to operations.</p>
+      <div class="team-comp-label" style="margin-bottom:1rem">Team Composition</div>
+      <ul style="list-style:none;display:grid;grid-template-columns:1fr;gap:0.65rem;margin-bottom:1.5rem">
+        <li style="display:flex;gap:0.6rem;font-size:0.88rem;color:var(--muted2)"><span style="color:var(--teal-glow);font-weight:700">—</span><span><strong style="color:var(--white);font-weight:600">Marketing Funnel Specialist</strong> · lead-gen & conversion funnels</span></li>
+        <li style="display:flex;gap:0.6rem;font-size:0.88rem;color:var(--muted2)"><span style="color:var(--teal-glow);font-weight:700">—</span><span><strong style="color:var(--white);font-weight:600">CRM / Automation Specialist</strong> · workflows & pipeline tracking</span></li>
+        <li style="display:flex;gap:0.6rem;font-size:0.88rem;color:var(--muted2)"><span style="color:var(--teal-glow);font-weight:700">—</span><span><strong style="color:var(--white);font-weight:600">Sales Systems Specialist</strong> · pipelines, scripts & closing</span></li>
+        <li style="display:flex;gap:0.6rem;font-size:0.88rem;color:var(--muted2)"><span style="color:var(--teal-glow);font-weight:700">—</span><span><strong style="color:var(--white);font-weight:600">Operations / Systems Manager</strong> · internal workflows</span></li>
+        <li style="display:flex;gap:0.6rem;font-size:0.88rem;color:var(--muted2)"><span style="color:var(--teal-glow);font-weight:700">—</span><span><strong style="color:var(--white);font-weight:600">Business Analyst</strong> · gaps, bottlenecks & opportunities</span></li>
+        <li style="display:flex;gap:0.6rem;font-size:0.88rem;color:var(--muted2)"><span style="color:var(--teal-glow);font-weight:700">—</span><span><strong style="color:var(--white);font-weight:600">Marketing Strategist</strong> · positioning & demand generation</span></li>
+      </ul>
+      <div class="unit-quote" style="font-size:0.85rem">Engineers transform ideas into fully functional systems — replacing guesswork with structure.</div>
+    </div>
+
+    <div class="unit-static" style="background:var(--surface);border:1px solid var(--border);border-top:2px solid var(--teal-glow);padding:2.5rem">
+      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem">
+        <div class="unit-icon so" style="font-size:1.6rem;width:52px;height:52px">🚀</div>
+        <div>
+          <div class="unit-name" style="font-size:1.4rem">Stratvya Operators</div>
+          <div class="unit-subtitle" style="margin-bottom:0">The Executors — Growth, Performance & Scale</div>
+        </div>
+      </div>
+      <p class="unit-desc" style="margin-bottom:1.75rem">Once the systems are built, Operators run, manage, and optimize them to produce real results — ensuring marketing generates leads, sales convert, and operations run smoothly.</p>
+      <div class="team-comp-label" style="margin-bottom:1rem">Team Composition</div>
+      <ul style="list-style:none;display:grid;grid-template-columns:1fr;gap:0.65rem;margin-bottom:1.5rem">
+        <li style="display:flex;gap:0.6rem;font-size:0.88rem;color:var(--muted2)"><span style="color:var(--teal-glow);font-weight:700">—</span><span><strong style="color:var(--white);font-weight:600">Growth Manager</strong> · scaling across all channels</span></li>
+        <li style="display:flex;gap:0.6rem;font-size:0.88rem;color:var(--muted2)"><span style="color:var(--teal-glow);font-weight:700">—</span><span><strong style="color:var(--white);font-weight:600">Digital Marketing Manager</strong> · campaigns & traffic</span></li>
+        <li style="display:flex;gap:0.6rem;font-size:0.88rem;color:var(--muted2)"><span style="color:var(--teal-glow);font-weight:700">—</span><span><strong style="color:var(--white);font-weight:600">Sales Representative / Closer</strong> · structured closing</span></li>
+        <li style="display:flex;gap:0.6rem;font-size:0.88rem;color:var(--muted2)"><span style="color:var(--teal-glow);font-weight:700">—</span><span><strong style="color:var(--white);font-weight:600">Customer Success Manager</strong> · retention & results</span></li>
+        <li style="display:flex;gap:0.6rem;font-size:0.88rem;color:var(--muted2)"><span style="color:var(--teal-glow);font-weight:700">—</span><span><strong style="color:var(--white);font-weight:600">Project Manager</strong> · structured execution</span></li>
+        <li style="display:flex;gap:0.6rem;font-size:0.88rem;color:var(--muted2)"><span style="color:var(--teal-glow);font-weight:700">—</span><span><strong style="color:var(--white);font-weight:600">Operations Manager</strong> · daily systems efficiency</span></li>
+        <li style="display:flex;gap:0.6rem;font-size:0.88rem;color:var(--muted2)"><span style="color:var(--teal-glow);font-weight:700">—</span><span><strong style="color:var(--white);font-weight:600">HR / Recruitment Specialist</strong> · team building for scale</span></li>
+      </ul>
+      <div class="unit-quote" style="font-size:0.85rem">Operators ensure that what is built actually works — consistently, efficiently, at scale.</div>
+    </div>
+  </div>
+
+    <div class="positioning-block">
+    <div class="pos-tagline">Engineers Build. Operators <span class="teal">Scale.</span></div>
+    <p class="pos-sub">Together, they form a complete growth engine — delivering not just plans, but real business outcomes.</p>
+    <div class="pos-pills">
+      <div class="pos-pill">System Design</div>
+      <div class="pos-pill" style="color:var(--muted)">+</div>
+      <div class="pos-pill">Execution & Operations</div>
+      <div class="pos-pill" style="color:var(--muted)">=</div>
+      <div class="pos-pill" style="background:rgba(45,212,191,0.1);border-color:var(--teal-glow)">Scalable Business Growth</div>
+    </div>
+  </div>
+</section>
+
+<hr class="div">
+
+<!-- BENEFITS -->
+<section>
+  <div class="section-label">Key Benefits</div>
+  <h2 style="margin-bottom:2.5rem">Five reasons to choose <span class="teal">Stratvya</span></h2>
+  <div class="benefits-grid">
+    <div class="benefit"><div class="benefit-num">— 01</div><h3 style="margin-bottom:0.6rem">End-to-End Growth</h3><p style="font-size:0.875rem">From strategy to execution to operations — one partner, one aligned system across your entire business.</p></div>
+    <div class="benefit" style="border-left:1px solid var(--border);border-right:1px solid var(--border)"><div class="benefit-num">— 02</div><h3 style="margin-bottom:0.6rem">Strategy + Execution</h3><p style="font-size:0.875rem">We don't just advise. We build. No gap between insight and action — unified, always.</p></div>
+    <div class="benefit"><div class="benefit-num">— 03</div><h3 style="margin-bottom:0.6rem">Revenue-Focused Systems</h3><p style="font-size:0.875rem">Every system engineered toward predictable, scalable revenue — not vanity metrics.</p></div>
+    <div class="benefit" style="border-top:1px solid var(--border)"><div class="benefit-num">— 04</div><h3 style="margin-bottom:0.6rem">Long-Term Partnership</h3><p style="font-size:0.875rem">We're not a one-time vendor. We're a growth partner invested in your compounding success.</p></div>
+    <div class="benefit" style="border-top:1px solid var(--border);border-left:1px solid var(--border);border-right:1px solid var(--border)"><div class="benefit-num">— 05</div><h3 style="margin-bottom:0.6rem">Clarity, Structure & Scale</h3><p style="font-size:0.875rem">We eliminate ambiguity. You know where you are, where you're going, and the precise path forward.</p></div>
+    <div class="benefit" style="border-top:1px solid var(--border);background:rgba(15,118,110,0.04)"><p style="font-size:0.875rem;font-style:italic;color:var(--teal-glow)">"We don't just complete tasks — we build businesses that are structured, scalable, and designed to last."</p></div>
+  </div>
+</section>
+
+<hr class="div">
+
+<!-- PHOTO STRIP -->
+<div class="alt-navy" style="padding:3rem 0 0">
+  <div class="photo-strip" style="margin:0">
+    <div class="photo-strip-item"><img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=700&q=70&fit=crop" alt="" loading="lazy"><div class="strip-caption"><span>Systems</span>Operational Architecture</div></div>
+    <div class="photo-strip-item"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=700&q=70&fit=crop" alt="" loading="lazy"><div class="strip-caption"><span>Revenue</span>Growth Infrastructure</div></div>
+    <div class="photo-strip-item"><img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=700&q=70&fit=crop" alt="" loading="lazy"><div class="strip-caption"><span>Execution</span>Remote Systems</div></div>
+  </div>
+</div>
+
+<hr class="div" style="margin-top:0">
+
+<!-- PROBLEMS -->
+<section>
+  <div class="section-label">Problems We Solve</div>
+  <h2 style="margin-bottom:2rem">Three problems we <span class="teal">eliminate</span></h2>
+  <div class="prob-grid">
+    <div class="prob-card"><div class="prob-x">✕</div><h3 style="margin-bottom:0.75rem">No Clear Direction</h3><p style="font-size:0.875rem">Scattered priorities. No roadmap. No clarity on what actually moves the needle. We fix that first.</p></div>
+    <div class="prob-card"><div class="prob-x">✕</div><h3 style="margin-bottom:0.75rem">Inconsistent Revenue</h3><p style="font-size:0.875rem">Pipeline empty. Sales unpredictable. We build the systems that make lead flow and revenue consistent.</p></div>
+    <div class="prob-card"><div class="prob-x">✕</div><h3 style="margin-bottom:0.75rem">No Systems / Messy Ops</h3><p style="font-size:0.875rem">Everything in someone's head. Nothing documented. Operations break. We rebuild them properly.</p></div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="cta-block">
+    <div class="section-label" style="justify-content:center;margin-bottom:1.5rem">Free Business Growth Audit</div>
+    <h2 style="margin-bottom:1rem">Find out what's stopping<br>your business from growing.</h2>
+    <p>A structured diagnosis — direction, revenue, systems — at no cost. Clarity first.</p>
+    <div style="margin-top:2rem"><button class="btn-primary" onclick="showPage('contact')">Apply for Free Business Audit</button></div>
+  </div>
+  <div style="margin-top:4rem">
+    <div class="section-label" style="margin-bottom:1.5rem">The Growth Funnel</div>
+    <div class="funnel">
+      <div class="funnel-step"><div class="fs-num">01</div><div class="fs-title">Content</div><div class="fs-sub">Discovery</div></div>
+      <div class="funnel-step"><div class="fs-num">02</div><div class="fs-title">Lead Audit</div><div class="fs-sub">Free diagnosis</div></div>
+      <div class="funnel-step"><div class="fs-num">03</div><div class="fs-title">Strategy Call</div><div class="fs-sub">Roadmap built</div></div>
+      <div class="funnel-step"><div class="fs-num">04</div><div class="fs-title">Offer</div><div class="fs-sub">Right program</div></div>
+      <div class="funnel-step"><div class="fs-num">05</div><div class="fs-title">Retainer</div><div class="fs-sub">Growth partner</div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-brand"><img src="assets/stratvya-logo.png" alt="Stratvya" style="height:48px;width:auto;display:block"><div class="foot-tagline" style="margin-left:0.5rem">Engineered Operations &amp; Scaling Solutions</div></div>
+    <ul class="foot-links"><li><a href="#" onclick="showPage('home');return false">Home</a></li><li><a href="#" onclick="showPage('programs');return false">Programs</a></li><li><a href="#" onclick="showPage('remote');return false">Remote Systems</a></li><li><a href="#" onclick="showPage('offers');return false">Offers</a></li><li><a href="#" onclick="showPage('contact');return false">Contact</a></li></ul>
+    <button class="btn-outline" onclick="showPage('contact')" style="padding:0.65rem 1.5rem;font-size:0.78rem">Free Audit →</button>
+  </div>
+  <div class="foot-bottom"><span>© 2025 Stratvya. All rights reserved.</span><span>Strategy. Execution. Scale.</span></div>
+</footer>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PROGRAMS
+══════════════════════════════════════════ -->
+<div id="page-programs" class="page">
+<div class="alt-navy" style="position:relative;height:320px;overflow:hidden;margin-top:0"><div style="position:absolute;inset:0;background:linear-gradient(0deg,var(--black) 0%,rgba(11,11,11,0.3) 60%,var(--black) 100%)"></div><div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:0 5%;max-width:1280px;margin:0 auto;z-index:2"><div class="section-label" style="margin-bottom:1rem">Structured Learning & Execution</div><h1 style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(2.5rem,6vw,4rem);text-transform:uppercase;letter-spacing:0.02em">Programs Built for <span class="teal">Business Growth</span></h1><p style="margin-top:0.75rem;max-width:520px">Structured systems and learning paths engineered for real business results.</p></div></div>
+<section>
+  <div class="section-label">How to Get Started</div><h2 style="margin-bottom:2rem">Two paths <span class="teal">in</span></h2>
+  <div class="paths"><div class="path-card"><div class="path-label">Path 01 — Direct Purchase</div><h3 style="margin-bottom:0.75rem">Choose & Buy Directly</h3><p style="font-size:0.9rem">Select your program, purchase directly, and receive an automatic welcome email with onboarding and immediate system access.</p><div class="path-steps"><span class="ps">Select Program</span><span class="pa">→</span><span class="ps">Checkout</span><span class="pa">→</span><span class="ps">Welcome Email</span></div></div><div class="path-card recommended"><div class="path-label">Path 02 — Guided Entry (Recommended)</div><h3 style="margin-bottom:0.75rem">Start With a Free Audit</h3><p style="font-size:0.9rem">We diagnose your business and recommend the exact right program — ensuring a precise fit before you invest.</p><div class="path-steps"><span class="ps">Free Audit</span><span class="pa">→</span><span class="ps">Recommendation</span><span class="pa">→</span><span class="ps">Program Offer</span></div></div></div>
+  <div class="section-label" style="margin-bottom:2rem">Program Tiers</div>
+  <div class="steel-grid">
+    <div class="plate plate-bronze">
+      <span class="rivet rivet-tl"></span><span class="rivet rivet-tr"></span><span class="rivet rivet-bl"></span><span class="rivet rivet-br"></span>
+      <div class="plate-label">Tier 01</div>
+      <div class="plate-tier">Bronze</div>
+      <div class="plate-product">For Launch</div>
+      <div class="plate-divider"></div>
+      <p class="plate-desc">Foundation systems for startups and early-stage businesses needing core structure and direction.</p>
+      <ul class="plate-features"><li>Business architecture design</li><li>Core systems setup</li><li>Direction & clarity framework</li><li>90-day growth roadmap</li></ul>
+      <button class="plate-cta" onclick="showPage('contact')">Get Started</button>
+    </div>
+    <div class="plate plate-silver">
+      <span class="rivet rivet-tl"></span><span class="rivet rivet-tr"></span><span class="rivet rivet-bl"></span><span class="rivet rivet-br"></span>
+      <div class="plate-label">Tier 02</div>
+      <div class="plate-tier">Silver</div>
+      <div class="plate-product">For Growth</div>
+      <div class="plate-divider"></div>
+      <p class="plate-desc">Revenue systems for businesses with traction needing consistent lead flow and real sales infrastructure.</p>
+      <ul class="plate-features"><li>Lead generation engine</li><li>Sales pipeline construction</li><li>Marketing systems build</li><li>Revenue tracking framework</li><li>Monthly strategy reviews</li></ul>
+      <button class="plate-cta" onclick="showPage('contact')">Get Started</button>
+    </div>
+    <div class="plate plate-gold">
+      <span class="rivet rivet-tl"></span><span class="rivet rivet-tr"></span><span class="rivet rivet-bl"></span><span class="rivet rivet-br"></span>
+      <div class="plate-label">Tier 03</div>
+      <div class="plate-tier">Gold</div>
+      <div class="plate-product">For Scale</div>
+      <div class="plate-divider"></div>
+      <p class="plate-desc">Scaling infrastructure for growing businesses building enterprise-grade operational systems.</p>
+      <ul class="plate-features"><li>Full operational build-out</li><li>Team systems & SOPs</li><li>Automation & workflows</li><li>Scaling playbooks</li><li>Bi-weekly operator support</li></ul>
+      <button class="plate-cta" onclick="showPage('contact')">Get Started</button>
+    </div>
+    <div class="plate plate-diamond">
+      <span class="rivet rivet-tl"></span><span class="rivet rivet-tr"></span><span class="rivet rivet-bl"></span><span class="rivet rivet-br"></span>
+      <span class="plate-crest">◆ Flagship</span>
+      <div class="plate-label">Tier 04</div>
+      <div class="plate-tier">Diamond</div>
+      <div class="plate-product">For Elite</div>
+      <div class="plate-divider"></div>
+      <p class="plate-desc">Full-spectrum partnership for serious operators who want Stratvya as a dedicated long-term growth partner.</p>
+      <ul class="plate-features"><li>Everything in Gold</li><li>Dedicated SE + SO team</li><li>Weekly strategy sessions</li><li>Priority execution support</li><li>Custom systems development</li></ul>
+      <button class="plate-cta" onclick="showPage('contact')">Apply Now</button>
+    </div>
+  </div>
+
+  <div class="section-label" style="margin:4rem 0 0">Additional Offers</div>
+  <h3 style="margin:0.75rem 0 1.5rem;font-size:1.4rem">Beyond the tiers — purpose-built suites</h3>
+  <div class="steel-grid-3">
+    <div class="plate plate-teal">
+      <span class="rivet rivet-tl"></span><span class="rivet rivet-tr"></span><span class="rivet rivet-bl"></span><span class="rivet rivet-br"></span>
+      <div class="plate-label">Offer 01</div>
+      <div class="plate-tier">Bundle</div>
+      <div class="plate-product">All-In Growth Package</div>
+      <div class="plate-divider"></div>
+      <p class="plate-desc">A combined package that pulls strategy, execution, and operations into one streamlined engagement.</p>
+      <ul class="plate-features"><li>Multi-program access</li><li>Integrated systems build</li><li>Cross-team coordination</li><li>Priority onboarding</li></ul>
+      <button class="plate-cta" onclick="showPage('contact')">Inquire</button>
+    </div>
+    <div class="plate plate-teal">
+      <span class="rivet rivet-tl"></span><span class="rivet rivet-tr"></span><span class="rivet rivet-bl"></span><span class="rivet rivet-br"></span>
+      <div class="plate-label">Offer 02</div>
+      <div class="plate-tier">CMS</div>
+      <div class="plate-product">Contractor Management Suite</div>
+      <div class="plate-divider"></div>
+      <p class="plate-desc">A purpose-built operational suite for managing contractors, freelancers, and remote teams at scale.</p>
+      <ul class="plate-features"><li>Contractor onboarding flows</li><li>Performance & QA tracking</li><li>Pay & compliance systems</li><li>Workflow automation</li></ul>
+      <button class="plate-cta" onclick="showPage('contact')">Inquire</button>
+    </div>
+    <div class="plate plate-teal">
+      <span class="rivet rivet-tl"></span><span class="rivet rivet-tr"></span><span class="rivet rivet-bl"></span><span class="rivet rivet-br"></span>
+      <div class="plate-label">Offer 03</div>
+      <div class="plate-tier">Upgrades</div>
+      <div class="plate-product">System Enhancements</div>
+      <div class="plate-divider"></div>
+      <p class="plate-desc">Targeted upgrades layered onto existing programs — extend capacity, add modules, refine systems.</p>
+      <ul class="plate-features"><li>Module add-ons</li><li>Capacity expansions</li><li>Custom integrations</li><li>Priority support tier</li></ul>
+      <button class="plate-cta" onclick="showPage('contact')">Inquire</button>
+    </div>
+  </div>
+</section>
+<section style="padding-top:0;padding-bottom:0"><div class="cta-block"><h2>Not sure which program fits?</h2><p>Start with a Free Business Growth Audit. We diagnose and recommend — precisely.</p><div style="margin-top:2rem"><button class="btn-primary" onclick="showPage('contact')">Apply for Free Business Growth Audit</button></div></div></section>
+<footer><div class="foot-inner"><div class="foot-brand"><img src="assets/stratvya-logo.png" alt="Stratvya" style="height:48px;width:auto;display:block"><div class="foot-tagline" style="margin-left:0.5rem">Engineered Operations &amp; Scaling Solutions</div></div><ul class="foot-links"><li><a href="#" onclick="showPage('home');return false">Home</a></li><li><a href="#" onclick="showPage('programs');return false">Programs</a></li><li><a href="#" onclick="showPage('remote');return false">Remote Systems</a></li><li><a href="#" onclick="showPage('offers');return false">Offers</a></li><li><a href="#" onclick="showPage('contact');return false">Contact</a></li></ul><button class="btn-outline" onclick="showPage('contact')" style="padding:0.65rem 1.5rem;font-size:0.78rem">Free Audit →</button></div><div class="foot-bottom"><span>© 2025 Stratvya. All rights reserved.</span><span>Strategy. Execution. Scale.</span></div></footer>
+</div>
+
+<!-- ══════════════════════════════════════════
+     REMOTE SYSTEMS
+══════════════════════════════════════════ -->
+<div id="page-remote" class="page">
+
+<!-- 1. HERO -->
+<div class="rs-hero alt-black">
+  <div class="rs-hero-bg">
+    <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=1600&q=70&fit=crop" alt="" loading="lazy">
+    <div class="rs-hero-scrim"></div>
+    <div class="rs-hero-grid"></div>
+  </div>
+  <div class="rs-hero-content">
+    <div class="section-label" style="justify-content:center">Stratvya Remote Systems</div>
+    <div class="rs-hero-meta">From Zero <span class="rs-arr">→</span> Live <span class="rs-arr">→</span> First Deployment</div>
+    <h1 class="rs-hero-h1">Become a System-Ready Operator.<br><span class="teal">Get Connected to Real Opportunities.</span></h1>
+    <p class="rs-hero-sub">Not a course. Not a job board. Not just a talent pool. Stratvya is the system that transforms individuals into structured operators — and connects them to businesses that actually need them.</p>
+    <div class="rs-hero-ctas">
+      <button class="btn-primary" onclick="showPage('contact')">Apply for the Talent Pool</button>
+      <button class="btn-outline" onclick="document.getElementById('rs-journey').scrollIntoView({behavior:'smooth'})">See the Journey</button>
+    </div>
+    <div class="rs-hero-stats">
+      <div><strong>Free</strong><span>to join the pool</span></div>
+      <div><strong>10%</strong><span>Stratvya share</span></div>
+      <div><strong>0</strong><span>upfront cost</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- 2. PROBLEM -->
+<section>
+  <div class="section-label">The Problem</div>
+  <h2 style="margin-bottom:0.75rem">Why most remote workers <span class="teal">stay stuck.</span></h2>
+  <p style="max-width:680px;margin-bottom:3rem">Talent is everywhere. Systems are not. The gap between "skilled" and "deployed" is what keeps most remote workers stuck — and what Stratvya was built to close.</p>
+  <div class="rs-prob-grid">
+    <div class="rs-prob-card">
+      <div class="rs-prob-icon"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 32V14l12-8 12 8v18"/><path d="M14 32V20h12v12"/></svg></div>
+      <h3>No structure</h3>
+      <p>You're skilled, but you're piecing things together alone — no playbook, no framework, no system to follow.</p>
+    </div>
+    <div class="rs-prob-card">
+      <div class="rs-prob-icon"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="20" cy="20" r="14"/><path d="M20 12v8l5 3"/></svg></div>
+      <h3>Low-paying gigs</h3>
+      <p>You bounce between low-rate jobs that drain your time, with no clear path to higher-tier opportunities.</p>
+    </div>
+    <div class="rs-prob-card">
+      <div class="rs-prob-icon"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 32l8-12 6 6 8-10 6 8"/><circle cx="32" cy="14" r="3"/></svg></div>
+      <h3>No real access</h3>
+      <p>The clients who actually pay well are out of reach — protected by referrals, networks, and gatekeepers you don't have.</p>
+    </div>
+    <div class="rs-prob-card">
+      <div class="rs-prob-icon"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 30c0-5.5 4.5-10 10-10s10 4.5 10 10"/><circle cx="20" cy="14" r="5"/><path d="M14 36h12"/></svg></div>
+      <h3>No clear progression</h3>
+      <p>Years pass without you levelling up. There's no system pushing you from "freelancer" to "operator."</p>
+    </div>
+  </div>
+</section>
+
+<!-- 3. SOLUTION / POSITIONING -->
+<section class="alt-navy">
+  <div class="section-label">The Solution</div>
+  <h2 style="margin-bottom:1rem">A structured ecosystem — <span class="teal">not just another platform.</span></h2>
+  <p style="max-width:720px;margin-bottom:3rem">Stratvya Remote Systems is built on three layers that work together: training that builds real capability, certification that verifies it, and a deployment engine that connects you to businesses already running on Stratvya systems.</p>
+
+  <div class="rs-pos-grid">
+    <div class="rs-pos-card">
+      <div class="rs-pos-num">01</div>
+      <h3>Ecosystem, not a marketplace</h3>
+      <p>You're inside a structured environment — not floating in a sea of bids and proposals.</p>
+    </div>
+    <div class="rs-pos-card">
+      <div class="rs-pos-num">02</div>
+      <h3>Capability, not credentials</h3>
+      <p>We build what you can actually do — not what looks good on paper.</p>
+    </div>
+    <div class="rs-pos-card">
+      <div class="rs-pos-num">03</div>
+      <h3>Systems, not tasks</h3>
+      <p>You learn to operate inside frameworks — the same way real businesses run.</p>
+    </div>
+  </div>
+
+  <div class="rs-tagline">"Join the ecosystem. Build your capability. Access real opportunities."</div>
+</section>
+
+<!-- 4. JOURNEY (CORE) -->
+<section id="rs-journey">
+  <div class="section-label">Your Journey</div>
+  <h2 style="margin-bottom:0.75rem">From Zero <span class="teal">→ Live → First Deployment</span></h2>
+  <p style="max-width:680px;margin-bottom:3rem">Six steps. The first two are free. Every step after is optional — your path, your pace.</p>
+
+  <div class="rs-steps">
+    <div class="rs-step">
+      <div class="rs-step-rail"><span class="rs-step-num">01</span></div>
+      <div class="rs-step-body">
+        <div class="rs-step-tag rs-tag-free">Free</div>
+        <h3>Join the Talent Pool</h3>
+        <div class="rs-step-grid">
+          <div><div class="rs-step-label">What it means</div><p>Your entry point into the Stratvya ecosystem. Profile created, capability mapped.</p></div>
+          <div><div class="rs-step-label">What you get</div><p>Visibility to Stratvya operators, ecosystem updates, eligibility for masterclasses.</p></div>
+          <div><div class="rs-step-label">Who it's for</div><p>Anyone exploring remote work or wanting access to structured opportunities.</p></div>
+          <div><div class="rs-step-label">Outcome</div><p class="rs-out">You're inside the system.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rs-step">
+      <div class="rs-step-rail"><span class="rs-step-num">02</span></div>
+      <div class="rs-step-body">
+        <div class="rs-step-tag rs-tag-free">Free</div>
+        <h3>Masterclass</h3>
+        <div class="rs-step-grid">
+          <div><div class="rs-step-label">What it means</div><p>A foundational session on system-based remote work and the Stratvya framework.</p></div>
+          <div><div class="rs-step-label">What you get</div><p>Core mental models, ecosystem orientation, and a clear view of the path ahead.</p></div>
+          <div><div class="rs-step-label">Who it's for</div><p>Talent Pool members ready to understand how the system actually works.</p></div>
+          <div><div class="rs-step-label">Outcome</div><p class="rs-out">You understand the operating model.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rs-step">
+      <div class="rs-step-rail"><span class="rs-step-num">03</span></div>
+      <div class="rs-step-body">
+        <div class="rs-step-tag rs-tag-opt">Optional</div>
+        <h3>Build</h3>
+        <div class="rs-step-grid">
+          <div><div class="rs-step-label">What it means</div><p>Hands-on construction of your operator profile — skills audit, gap analysis, system fit.</p></div>
+          <div><div class="rs-step-label">What you get</div><p>A structured profile that reflects what you can actually execute.</p></div>
+          <div><div class="rs-step-label">Who it's for</div><p>Members serious about positioning themselves for higher-tier deployment.</p></div>
+          <div><div class="rs-step-label">Outcome</div><p class="rs-out">A profile that signals capability.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rs-step">
+      <div class="rs-step-rail"><span class="rs-step-num">04</span></div>
+      <div class="rs-step-body">
+        <div class="rs-step-tag rs-tag-opt">Optional</div>
+        <h3>Train</h3>
+        <div class="rs-step-grid">
+          <div><div class="rs-step-label">What it means</div><p>Structured upskilling on the systems Stratvya businesses actually run on.</p></div>
+          <div><div class="rs-step-label">What you get</div><p>Frameworks, SOPs, system-thinking — the way real operators work.</p></div>
+          <div><div class="rs-step-label">Who it's for</div><p>Members who want measurable capability gains, not just content.</p></div>
+          <div><div class="rs-step-label">Outcome</div><p class="rs-out">You operate, not just execute.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rs-step">
+      <div class="rs-step-rail"><span class="rs-step-num">05</span></div>
+      <div class="rs-step-body">
+        <div class="rs-step-tag rs-tag-opt">Optional</div>
+        <h3>Certify</h3>
+        <div class="rs-step-grid">
+          <div><div class="rs-step-label">What it means</div><p>Verified proof of operator-grade capability against Stratvya benchmarks.</p></div>
+          <div><div class="rs-step-label">What you get</div><p>Stratvya certification, priority status, and visibility to deployment partners.</p></div>
+          <div><div class="rs-step-label">Who it's for</div><p>Trained members ready to be deployed at the highest tier.</p></div>
+          <div><div class="rs-step-label">Outcome</div><p class="rs-out">Top-of-list deployment priority.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rs-step">
+      <div class="rs-step-rail"><span class="rs-step-num">06</span></div>
+      <div class="rs-step-body">
+        <div class="rs-step-tag rs-tag-opt">Optional</div>
+        <h3>Deploy</h3>
+        <div class="rs-step-grid">
+          <div><div class="rs-step-label">What it means</div><p>Active deployment to Stratvya client businesses needing structured operators.</p></div>
+          <div><div class="rs-step-label">What you get</div><p>Real opportunities, ongoing engagements, performance-based earnings.</p></div>
+          <div><div class="rs-step-label">Who it's for</div><p>Certified operators ready to work inside high-performance systems.</p></div>
+          <div><div class="rs-step-label">Outcome</div><p class="rs-out">Live work. Real income. Real outcomes.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. HOW YOU EARN -->
+<section class="alt-navy">
+  <div class="section-label">How You Earn</div>
+  <h2 style="margin-bottom:0.75rem">A model built on <span class="teal">your performance.</span></h2>
+  <p style="max-width:680px;margin-bottom:3rem">No upfront cost. No hidden fees. You only pay Stratvya when you actually earn through Stratvya — and we keep our share aligned with your success.</p>
+
+  <div class="rs-earn-grid">
+    <div class="rs-earn-split">
+      <div class="rs-earn-bar">
+        <div class="rs-earn-you" style="width:90%"><span>You keep <strong>90%</strong></span></div>
+        <div class="rs-earn-strat" style="width:10%"><span>Stratvya <strong>10%</strong></span></div>
+      </div>
+      <p style="font-size:0.88rem;color:var(--muted2);margin-top:1.25rem">Performance-aligned. We win when you win.</p>
+    </div>
+
+    <div class="rs-earn-points">
+      <div class="rs-earn-point"><div class="rs-earn-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="16" cy="16" r="12"/><path d="M11 16h10M16 11v10"/></svg></div><div><h4>Free to enter</h4><p>No upfront cost to join the Talent Pool or the Masterclass.</p></div></div>
+      <div class="rs-earn-point"><div class="rs-earn-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 26V12l10-6 10 6v14"/><path d="M12 26V18h8v8"/></svg></div><div><h4>Pay only when earning</h4><p>Stratvya's share is taken only from real income generated through Stratvya deployments.</p></div></div>
+      <div class="rs-earn-point"><div class="rs-earn-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 16h22M19 8l8 8-8 8"/></svg></div><div><h4>No lock-in</h4><p>Stay as long as it's working. Leave whenever it isn't. The system serves you.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. PRIORITY SYSTEM -->
+<section>
+  <div class="section-label">Deployment Priority</div>
+  <h2 style="margin-bottom:0.75rem">The system favors <span class="teal">readiness.</span></h2>
+  <p style="max-width:680px;margin-bottom:3rem">When opportunities open, Stratvya deploys based on verified capability — not seniority, not luck. The more you've built, the higher you stand.</p>
+
+  <div class="rs-priority">
+    <div class="rs-pri-row rs-pri-1">
+      <div class="rs-pri-rank">01</div>
+      <div class="rs-pri-body">
+        <div class="rs-pri-tag">Highest Priority</div>
+        <h3>Certified Operators</h3>
+        <p>Verified, benchmarked, and deployment-ready. First in line for every opportunity.</p>
+      </div>
+      <div class="rs-pri-bar"><div style="width:100%"></div></div>
+    </div>
+    <div class="rs-pri-row rs-pri-2">
+      <div class="rs-pri-rank">02</div>
+      <div class="rs-pri-body">
+        <div class="rs-pri-tag">Mid Priority</div>
+        <h3>Trained Participants</h3>
+        <p>Completed Stratvya training, working toward certification.</p>
+      </div>
+      <div class="rs-pri-bar"><div style="width:65%"></div></div>
+    </div>
+    <div class="rs-pri-row rs-pri-3">
+      <div class="rs-pri-rank">03</div>
+      <div class="rs-pri-body">
+        <div class="rs-pri-tag">Base Priority</div>
+        <h3>General Talent Pool</h3>
+        <p>Eligible for opportunities matching your declared capability and availability.</p>
+      </div>
+      <div class="rs-pri-bar"><div style="width:32%"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. WHY STRATVYA IS DIFFERENT -->
+<section class="alt-navy">
+  <div class="section-label">Why Stratvya is Different</div>
+  <h2 style="margin-bottom:3rem">Built on a model <span class="teal">no one else runs.</span></h2>
+  <div class="rs-diff-grid">
+    <div class="rs-diff"><div class="rs-diff-x">≠</div><div><h3>Not just training</h3><p>Training is a step — not the product. The product is real deployment.</p></div></div>
+    <div class="rs-diff"><div class="rs-diff-x">≠</div><div><h3>Not just a talent pool</h3><p>A pool sits still. Our ecosystem actively builds and deploys you.</p></div></div>
+    <div class="rs-diff"><div class="rs-diff-x">≠</div><div><h3>Not just job matching</h3><p>We don't just match — we prepare, certify, and place inside real systems.</p></div></div>
+    <div class="rs-diff"><div class="rs-diff-eq">=</div><div><h3>Flexible path</h3><p>Free entry. Optional steps. You choose how deep you go and when.</p></div></div>
+    <div class="rs-diff"><div class="rs-diff-eq">=</div><div><h3>Performance-based model</h3><p>You only pay when Stratvya is generating real income for you.</p></div></div>
+  </div>
+</section>
+
+<!-- 8. YOUR PATH, YOUR CONTROL -->
+<section>
+  <div class="section-label">Your Path, Your Control</div>
+  <h2 style="margin-bottom:3rem">Flexibility, by design.</h2>
+  <div class="rs-control-grid">
+    <div class="rs-ctl"><div class="rs-ctl-ico">✓</div><h4>Join free</h4><p>Talent Pool entry costs nothing.</p></div>
+    <div class="rs-ctl"><div class="rs-ctl-ico">↑</div><h4>Upskill optional</h4><p>Level up only when you're ready.</p></div>
+    <div class="rs-ctl"><div class="rs-ctl-ico">◆</div><h4>Certify optional</h4><p>Pursue priority status on your timeline.</p></div>
+    <div class="rs-ctl"><div class="rs-ctl-ico">→</div><h4>Deploy optional</h4><p>Take opportunities when they fit you.</p></div>
+    <div class="rs-ctl"><div class="rs-ctl-ico">⤴</div><h4>Leave anytime</h4><p>No lock-in. No exit penalty. Ever.</p></div>
+  </div>
+</section>
+
+<!-- 9. WHO THIS IS FOR / NOT FOR -->
+<section class="alt-navy">
+  <div class="section-label">Qualification</div>
+  <h2 style="margin-bottom:3rem">Who this is — <span class="teal">and isn't</span> — for.</h2>
+  <div class="rs-fit-grid">
+    <div class="rs-fit rs-fit-yes">
+      <div class="rs-fit-head">
+        <div class="rs-fit-mark">✓</div>
+        <h3>This is for you if</h3>
+      </div>
+      <ul>
+        <li>You want structured access to remote opportunities, not random gigs.</li>
+        <li>You're willing to build real capability, not just chase titles.</li>
+        <li>You value systems, frameworks, and operating discipline.</li>
+        <li>You want a long-term path — from Zero to deployed operator.</li>
+        <li>You take ownership of your progress and pace.</li>
+      </ul>
+    </div>
+    <div class="rs-fit rs-fit-no">
+      <div class="rs-fit-head">
+        <div class="rs-fit-mark">✘</div>
+        <h3>This is not for you if</h3>
+      </div>
+      <ul>
+        <li>You expect instant jobs the moment you sign up.</li>
+        <li>You want guaranteed income with no readiness work.</li>
+        <li>You're looking for a job board with one-click apply.</li>
+        <li>You prefer task-based gigs over system-based engagements.</li>
+        <li>You want shortcuts instead of building real capability.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 10. IMPORTANT NOTES -->
+<section>
+  <div class="section-label">Important Notes</div>
+  <h2 style="margin-bottom:2rem">Transparency, <span class="teal">upfront.</span></h2>
+  <div class="rs-notes">
+    <div class="rs-note"><div class="rs-note-ico"><svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="14" cy="14" r="11"/><path d="M14 8v7M14 19v.5"/></svg></div><div><strong>No guaranteed employment.</strong><p>Stratvya is an ecosystem, not an employer. We don't promise jobs.</p></div></div>
+    <div class="rs-note"><div class="rs-note-ico"><svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="14" cy="14" r="11"/><path d="M14 8v7M14 19v.5"/></svg></div><div><strong>Opportunities depend on readiness and demand.</strong><p>Deployments scale with your capability and the businesses currently engaging Stratvya.</p></div></div>
+    <div class="rs-note"><div class="rs-note-ico"><svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="14" cy="14" r="11"/><path d="M14 8v7M14 19v.5"/></svg></div><div><strong>Certification raises priority — it does not guarantee.</strong><p>It moves you to the front of the line, but no system can promise outcomes.</p></div></div>
+  </div>
+</section>
+
+<!-- 11. FINAL CTA -->
+<section class="alt-navy" style="padding-top:0">
+  <div class="rs-final-cta">
+    <div class="rs-final-bg"></div>
+    <div class="rs-final-inner">
+      <div class="section-label" style="justify-content:center">Your Move</div>
+      <h2 style="margin-bottom:1rem;font-size:clamp(2rem,5vw,3.4rem)">Start your journey from <span class="teal">zero to your first real opportunity.</span></h2>
+      <p style="max-width:600px;margin:0 auto 2rem">The Talent Pool is free. The Masterclass is free. The path forward is yours to choose. Stratvya provides the system — you bring the readiness.</p>
+      <div class="rs-hero-ctas" style="justify-content:center">
+        <button class="btn-primary" onclick="showPage('contact')">Apply for the Talent Pool</button>
+        <button class="btn-outline" onclick="showPage('contact')">Talk to a Stratvya Operator</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer><div class="foot-inner"><div class="foot-brand"><img src="assets/stratvya-logo.png" alt="Stratvya" style="height:48px;width:auto;display:block"><div class="foot-tagline" style="margin-left:0.5rem">Engineered Operations &amp; Scaling Solutions</div></div><ul class="foot-links"><li><a href="#" onclick="showPage('home');return false">Home</a></li><li><a href="#" onclick="showPage('programs');return false">Programs</a></li><li><a href="#" onclick="showPage('remote');return false">Remote Systems</a></li><li><a href="#" onclick="showPage('offers');return false">Offers</a></li><li><a href="#" onclick="showPage('contact');return false">Contact</a></li></ul><button class="btn-outline" onclick="showPage('contact')" style="padding:0.65rem 1.5rem;font-size:0.78rem">Free Audit →</button></div><div class="foot-bottom"><span>© 2025 Stratvya. All rights reserved.</span><span>Strategy. Execution. Scale.</span></div></footer>
+</div>
+
+<!-- ══════════════════════════════════════════
+     OFFERS
+══════════════════════════════════════════ -->
+<div id="page-offers" class="page">
+<div class="ph alt-navy" style="position:relative;overflow:hidden;min-height:340px;display:flex;align-items:center"><img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=1400&q=70&fit=crop" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.15;filter:saturate(0.2) contrast(1.2)"><div style="position:absolute;inset:0;background:linear-gradient(0deg,var(--black) 0%,rgba(11,11,11,0.4) 50%,var(--black) 100%)"></div><div class="ph-inner" style="position:relative;z-index:2;max-width:900px"><div class="section-label">What We Offer</div><h1 style="margin-bottom:1.25rem">Systems to Build, Operate, and <span class="teal">Scale Your Business.</span></h1><p style="max-width:680px;font-size:1.02rem;line-height:1.6">From foundation to growth, our offers are designed to structure your operations, streamline execution, and create systems that drive consistent revenue and long-term scale.</p></div></div>
+<section><div class="offer-hero"><div class="offer-tag">Primary Offer</div><h2 style="margin-bottom:1rem;position:relative">Business Coaching</h2><p style="max-width:480px;margin:0 auto 2rem;position:relative">A direct, structured engagement combining strategy, system design, and execution support to drive measurable business growth.</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;max-width:640px;margin:0 auto 2.5rem;text-align:left"><div style="background:rgba(11,11,11,0.7);border:1px solid var(--border);padding:1.5rem"><div style="font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--teal-glow);margin-bottom:0.75rem;font-weight:600">What You Get</div><ul style="list-style:none;display:flex;flex-direction:column;gap:0.45rem"><li style="font-size:0.85rem;color:var(--muted2);display:flex;gap:0.5rem"><span style="color:var(--teal-glow)">—</span>1:1 strategy sessions</li><li style="font-size:0.85rem;color:var(--muted2);display:flex;gap:0.5rem"><span style="color:var(--teal-glow)">—</span>System audits & builds</li><li style="font-size:0.85rem;color:var(--muted2);display:flex;gap:0.5rem"><span style="color:var(--teal-glow)">—</span>Revenue roadmap creation</li><li style="font-size:0.85rem;color:var(--muted2);display:flex;gap:0.5rem"><span style="color:var(--teal-glow)">—</span>Operational framework setup</li></ul></div><div style="background:rgba(11,11,11,0.7);border:1px solid var(--border);padding:1.5rem"><div style="font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--teal-glow);margin-bottom:0.75rem;font-weight:600">How It Works</div><ul style="list-style:none;display:flex;flex-direction:column;gap:0.45rem"><li style="font-size:0.85rem;color:var(--muted2);display:flex;gap:0.5rem"><span style="color:var(--teal-glow)">—</span>Free audit first</li><li style="font-size:0.85rem;color:var(--muted2);display:flex;gap:0.5rem"><span style="color:var(--teal-glow)">—</span>Strategy call & diagnosis</li><li style="font-size:0.85rem;color:var(--muted2);display:flex;gap:0.5rem"><span style="color:var(--teal-glow)">—</span>Program match & offer</li><li style="font-size:0.85rem;color:var(--muted2);display:flex;gap:0.5rem"><span style="color:var(--teal-glow)">—</span>Ongoing retainer partnership</li></ul></div></div><button class="btn-primary" onclick="showPage('contact')" style="position:relative">Apply for a Free Business Growth Audit</button></div>
+</section>
+
+<section class="alt-navy">
+  <div class="offer-narrative">
+    <div class="section-label">How Our Offers Work Together</div>
+    <h2 style="margin-bottom:2rem">Structured solutions, <span class="teal">not standalone services.</span></h2>
+    <div class="offer-narrative-grid">
+      <div class="offer-narrative-col">
+        <div class="ono-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="8" y="14" width="32" height="22" rx="2"/><path d="M14 22h20M14 28h14"/><circle cx="24" cy="8" r="3"/></svg></div>
+        <p style="font-size:1rem;line-height:1.75">Stratvya is designed to move your business forward — no matter your current stage. Our offers are not standalone services, but structured solutions built to guide you from idea to execution, from inconsistent results to predictable revenue, and from disorganized operations to scalable systems. Each program is aligned with a specific phase of growth, ensuring you get exactly what your business needs to progress with clarity and direction.</p>
+      </div>
+      <div class="offer-narrative-col">
+        <div class="ono-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 38L20 26l8 8 12-14"/><path d="M30 20h10v10"/><circle cx="20" cy="26" r="2" fill="currentColor"/><circle cx="28" cy="34" r="2" fill="currentColor"/></svg></div>
+        <p style="font-size:1rem;line-height:1.75">We begin by identifying what's holding your business back, then build the foundation, optimize your revenue systems, and implement the operations required to scale efficiently. From audits and launch systems to growth retainers and full operational support, everything we do is focused on real outcomes. We don't just advise — we design, build, and run the systems that turn your business into a structured, high-performing, and scalable operation.</p>
+      </div>
+    </div>
+    <div class="offer-narrative-pills">
+      <div class="onp">Identify</div><span class="onp-arrow">→</span>
+      <div class="onp">Build</div><span class="onp-arrow">→</span>
+      <div class="onp">Optimize</div><span class="onp-arrow">→</span>
+      <div class="onp">Scale</div>
+    </div>
+  </div>
+</section>
+<footer><div class="foot-inner"><div class="foot-brand"><img src="assets/stratvya-logo.png" alt="Stratvya" style="height:48px;width:auto;display:block"><div class="foot-tagline" style="margin-left:0.5rem">Engineered Operations &amp; Scaling Solutions</div></div><ul class="foot-links"><li><a href="#" onclick="showPage('home');return false">Home</a></li><li><a href="#" onclick="showPage('programs');return false">Programs</a></li><li><a href="#" onclick="showPage('remote');return false">Remote Systems</a></li><li><a href="#" onclick="showPage('offers');return false">Offers</a></li><li><a href="#" onclick="showPage('contact');return false">Contact</a></li></ul><button class="btn-outline" onclick="showPage('contact')" style="padding:0.65rem 1.5rem;font-size:0.78rem">Free Audit →</button></div><div class="foot-bottom"><span>© 2025 Stratvya. All rights reserved.</span><span>Strategy. Execution. Scale.</span></div></footer>
+</div>
+
+<!-- ══════════════════════════════════════════
+     CONTACT
+══════════════════════════════════════════ -->
+<div id="page-contact" class="page">
+<div class="alt-navy" style="position:relative;overflow:hidden;min-height:300px;display:flex;align-items:center"><img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1400&q=70&fit=crop" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.18;filter:saturate(0.2) contrast(1.2)"><div style="position:absolute;inset:0;background:linear-gradient(0deg,var(--black) 0%,rgba(11,11,11,0.4) 50%,var(--black) 100%)"></div><div style="padding:4rem 5%;max-width:1280px;margin:0 auto;width:100%;position:relative;z-index:2"><div class="section-label" style="margin-bottom:1rem">Start Here</div><h1 style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(2.5rem,6vw,4rem);text-transform:uppercase;letter-spacing:0.02em;margin-bottom:0.75rem">Let's Build Your Business <span class="teal">Properly.</span></h1><p style="max-width:500px">Begin with a Free Business Growth Audit. We diagnose, then we prescribe. No obligation, full clarity.</p></div></div>
+<section><div class="contact-grid"><div><div class="section-label" style="margin-bottom:2rem">Apply for a Free Business Growth Audit</div><div class="form-group"><label>Full Name</label><input type="text" placeholder="Your full name"></div><div class="form-group"><label>Email Address</label><input type="email" placeholder="your@email.com"></div><div class="form-group"><label>What do you need help with?</label><select><option value="">Select an option</option><option>I'm starting a business from scratch</option><option>My business is struggling — I need help</option><option>I'm growing and need to scale my systems</option><option>I want to become a Stratvya Operator</option><option>I need a trained remote team</option><option>I'm interested in business coaching</option><option>Other</option></select></div><div class="form-group"><label>Tell Us About Your Business</label><textarea placeholder="Describe where your business is now and where you want it to go. Be specific — this helps us give you a more precise audit."></textarea></div><button class="btn-primary" style="width:100%;padding:1.1rem;text-align:center">Submit Application</button><p style="font-size:0.75rem;margin-top:1rem;color:var(--muted)">We review all applications within 48 hours and respond with next steps by email.</p></div><div><div class="section-label" style="margin-bottom:2rem">What Happens Next</div><div class="next-steps"><div class="ns-item"><div class="ns-num">01</div><div><h3 style="margin-bottom:0.3rem;font-size:1rem">Application Review</h3><p style="font-size:0.875rem">We review your submission within 48 hours and confirm your free audit appointment.</p></div></div><div class="ns-item"><div class="ns-num">02</div><div><h3 style="margin-bottom:0.3rem;font-size:1rem">Business Audit</h3><p style="font-size:0.875rem">A structured diagnostic session covering your direction, revenue systems, and operations.</p></div></div><div class="ns-item"><div class="ns-num">03</div><div><h3 style="margin-bottom:0.3rem;font-size:1rem">Strategic Recommendations</h3><p style="font-size:0.875rem">You receive a clear breakdown of what's blocking your growth and what needs to be built.</p></div></div><div class="ns-item"><div class="ns-num filled">04</div><div><h3 style="margin-bottom:0.3rem;font-size:1rem">Partnership Begins</h3><p style="font-size:0.875rem">If there's a fit, we move into the right program. No pressure. Full clarity on both sides.</p></div></div></div><div style="background:rgba(15,118,110,0.06);border:1px solid rgba(15,118,110,0.25);border-left:2px solid var(--teal-glow);padding:2rem;margin-top:2.5rem"><h3 style="font-size:1rem;margin-bottom:0.5rem">This Audit is 100% Free</h3><p style="font-size:0.875rem">No hidden fees. No obligation to buy. An honest diagnosis of your business and a clear picture of what growth looks like for you.</p></div><div style="position:relative;overflow:hidden;height:180px;margin-top:1.5rem"><img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=700&q=70&fit=crop" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.35;filter:saturate(0.3) contrast(1.1)" loading="lazy"><div style="position:absolute;inset:0;background:linear-gradient(0deg,var(--black) 0%,transparent 50%)"></div><div style="position:absolute;bottom:1rem;left:1.25rem;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--teal-glow)">Strategy. Execution. Scale.</div></div></div></div></section>
+<footer><div class="foot-inner"><div class="foot-brand"><img src="assets/stratvya-logo.png" alt="Stratvya" style="height:48px;width:auto;display:block"><div class="foot-tagline" style="margin-left:0.5rem">Engineered Operations &amp; Scaling Solutions</div></div><ul class="foot-links"><li><a href="#" onclick="showPage('home');return false">Home</a></li><li><a href="#" onclick="showPage('programs');return false">Programs</a></li><li><a href="#" onclick="showPage('remote');return false">Remote Systems</a></li><li><a href="#" onclick="showPage('offers');return false">Offers</a></li><li><a href="#" onclick="showPage('contact');return false">Contact</a></li></ul><button class="btn-outline" onclick="showPage('contact')" style="padding:0.65rem 1.5rem;font-size:0.78rem">Free Audit →</button></div><div class="foot-bottom"><span>© 2025 Stratvya. All rights reserved.</span><span>Strategy. Execution. Scale.</span></div></footer>
+</div>
+
+<script>
+
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(a=>a.classList.remove('active'));
+  const p=document.getElementById('page-'+id);
+  if(p)p.classList.add('active');
+  const l=document.querySelector('[data-page="'+id+'"]');
+  if(l)l.classList.add('active');
+  window.scrollTo(0,0);
+}
+document.querySelectorAll('.nav-link').forEach(a=>{
+  a.addEventListener('click',function(e){e.preventDefault();showPage(this.getAttribute('data-page'))});
+});
+function switchTab(id){
+  document.querySelectorAll('.unit-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.unit-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  const tabs=document.querySelectorAll('.unit-tab');
+  if(id==='se')tabs[0].classList.add('active');
+  else tabs[1].classList.add('active');
+}
+</script>
+
+<!-- Plate Tweaks Panel -->
+<div id="plate-tweaks">
+  <button class="pt-close" onclick="document.getElementById('plate-tweaks').classList.remove('open');window.parent.postMessage({type:'__edit_mode_dismissed'},'*')">×</button>
+  <h4>Steel Plate Tweaks</h4>
+  <label>Sheen <input type="range" min="0" max="2" step="0.05" value="1" id="pt-sheen"></label>
+  <label>Engraving <input type="range" min="0" max="2" step="0.05" value="1" id="pt-engrave"></label>
+  <label>Rivets <input type="checkbox" id="pt-rivets" checked></label>
+</div>
+<script>
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "plateSheen": 0.25,
+  "plateEngrave": 2,
+  "plateRivets": true
+}/*EDITMODE-END*/;
+(function(){
+  const root = document.documentElement;
+  const apply = (k,v) => {
+    if(k==='plateSheen') root.style.setProperty('--plate-sheen', v);
+    if(k==='plateEngrave') root.style.setProperty('--plate-engrave', v);
+    if(k==='plateRivets') root.style.setProperty('--plate-rivets', v ? 'block' : 'none');
+  };
+  Object.entries(TWEAK_DEFAULTS).forEach(([k,v])=>apply(k,v));
+  const persist = (edits)=>window.parent.postMessage({type:'__edit_mode_set_keys',edits},'*');
+  window.addEventListener('message',(e)=>{
+    if(e.data?.type==='__activate_edit_mode') document.getElementById('plate-tweaks').classList.add('open');
+    if(e.data?.type==='__deactivate_edit_mode') document.getElementById('plate-tweaks').classList.remove('open');
+  });
+  window.parent.postMessage({type:'__edit_mode_available'},'*');
+  document.addEventListener('DOMContentLoaded',()=>{
+    const sh=document.getElementById('pt-sheen'),en=document.getElementById('pt-engrave'),rv=document.getElementById('pt-rivets');
+    sh.value=TWEAK_DEFAULTS.plateSheen; en.value=TWEAK_DEFAULTS.plateEngrave; rv.checked=TWEAK_DEFAULTS.plateRivets;
+    sh.oninput=()=>{const v=+sh.value;apply('plateSheen',v);persist({plateSheen:v});};
+    en.oninput=()=>{const v=+en.value;apply('plateEngrave',v);persist({plateEngrave:v});};
+    rv.onchange=()=>{apply('plateRivets',rv.checked);persist({plateRivets:rv.checked});};
+  });
+})();
+</script>
+<!-- ═══════════ CHAT WIDGET ═══════════ -->
+<style>
+#sv-chat-fab{
+  position:fixed;right:24px;bottom:24px;z-index:998;
+  width:60px;height:60px;border-radius:50%;border:1px solid rgba(45,212,191,0.4);
+  background:linear-gradient(145deg,#0F766E 0%,#0a4d48 100%);
+  color:#fff;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 28px -6px rgba(15,118,110,0.55),0 0 0 4px rgba(15,118,110,0.08);
+  transition:transform 0.2s ease,box-shadow 0.2s ease;
+}
+#sv-chat-fab:hover{transform:translateY(-2px);box-shadow:0 12px 32px -6px rgba(15,118,110,0.7),0 0 0 6px rgba(15,118,110,0.12)}
+#sv-chat-fab svg{width:26px;height:26px}
+#sv-chat-fab .sv-chat-badge{position:absolute;top:-4px;right:-4px;background:#2DD4BF;color:#0B0B0B;font-size:0.6rem;font-weight:700;padding:0.15rem 0.45rem;border-radius:10px;letter-spacing:0.05em}
+
+#sv-chat-panel{
+  position:fixed;right:24px;bottom:96px;z-index:999;
+  width:380px;max-width:calc(100vw - 32px);height:560px;max-height:calc(100vh - 120px);
+  background:#0B1220;border:1px solid rgba(45,212,191,0.25);
+  border-radius:14px;overflow:hidden;
+  display:none;flex-direction:column;
+  box-shadow:0 24px 60px -12px rgba(0,0,0,0.7);
+  font-family:'Barlow',sans-serif;
+}
+#sv-chat-panel.open{display:flex;animation:svChatIn 0.25s ease}
+@keyframes svChatIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.sv-chat-head{
+  background:linear-gradient(135deg,#0F766E 0%,#0b1f3a 100%);
+  padding:1rem 1.1rem;display:flex;align-items:center;gap:0.75rem;
+  border-bottom:1px solid rgba(45,212,191,0.2);
+}
+.sv-chat-avatar{width:38px;height:38px;border-radius:50%;background:#0B0B0B;display:flex;align-items:center;justify-content:center;border:1px solid rgba(45,212,191,0.4);overflow:hidden}
+.sv-chat-avatar img{width:24px;height:24px;object-fit:contain}
+.sv-chat-title{flex:1;line-height:1.2}
+.sv-chat-title strong{display:block;font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;letter-spacing:0.05em;color:#fff}
+.sv-chat-title span{font-size:0.7rem;color:#7be3dd;display:flex;align-items:center;gap:0.4rem}
+.sv-chat-title span::before{content:'';width:7px;height:7px;border-radius:50%;background:#2DD4BF;box-shadow:0 0 6px #2DD4BF}
+.sv-chat-close{background:none;border:0;color:rgba(255,255,255,0.7);font-size:1.4rem;cursor:pointer;padding:0 0.25rem;line-height:1}
+.sv-chat-close:hover{color:#fff}
+
+.sv-chat-body{flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:0.75rem;background:#070d18}
+.sv-chat-body::-webkit-scrollbar{width:6px}
+.sv-chat-body::-webkit-scrollbar-thumb{background:rgba(45,212,191,0.25);border-radius:3px}
+.sv-msg{max-width:85%;padding:0.7rem 0.95rem;border-radius:12px;font-size:0.88rem;line-height:1.5;white-space:pre-wrap;word-wrap:break-word}
+.sv-msg.bot{background:rgba(15,118,110,0.18);border:1px solid rgba(45,212,191,0.22);color:#e8f6f5;align-self:flex-start;border-bottom-left-radius:4px}
+.sv-msg.user{background:#0F766E;color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.sv-msg.bot.typing{display:flex;gap:4px;align-items:center;padding:0.85rem 1rem}
+.sv-msg.bot.typing span{width:6px;height:6px;border-radius:50%;background:#7be3dd;animation:svBlink 1.2s infinite}
+.sv-msg.bot.typing span:nth-child(2){animation-delay:0.2s}
+.sv-msg.bot.typing span:nth-child(3){animation-delay:0.4s}
+@keyframes svBlink{0%,60%,100%{opacity:0.3}30%{opacity:1}}
+
+.sv-chat-suggestions{display:flex;flex-wrap:wrap;gap:0.4rem;padding:0 1rem 0.5rem}
+.sv-chat-sugg{background:rgba(15,118,110,0.12);border:1px solid rgba(45,212,191,0.25);color:#7be3dd;font-size:0.72rem;padding:0.4rem 0.7rem;border-radius:14px;cursor:pointer;font-family:'Barlow',sans-serif;transition:background 0.15s}
+.sv-chat-sugg:hover{background:rgba(15,118,110,0.25)}
+
+.sv-chat-input{display:flex;gap:0.5rem;padding:0.75rem;border-top:1px solid rgba(45,212,191,0.15);background:#0B1220}
+.sv-chat-input input{flex:1;background:#070d18;border:1px solid rgba(45,212,191,0.2);color:#fff;padding:0.7rem 0.9rem;border-radius:10px;font-family:'Barlow',sans-serif;font-size:0.88rem;outline:none}
+.sv-chat-input input:focus{border-color:#2DD4BF}
+.sv-chat-input button{background:#0F766E;border:1px solid rgba(45,212,191,0.4);color:#fff;padding:0 1rem;border-radius:10px;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:0.1em;font-size:0.78rem;text-transform:uppercase}
+.sv-chat-input button:hover{background:#0d635c}
+.sv-chat-input button:disabled{opacity:0.5;cursor:not-allowed}
+.sv-chat-foot{font-size:0.65rem;color:rgba(255,255,255,0.4);text-align:center;padding:0.4rem;letter-spacing:0.05em;background:#0B1220}
+
+@media(max-width:520px){
+  #sv-chat-panel{right:12px;left:12px;width:auto;bottom:84px;height:calc(100vh - 110px)}
+  #sv-chat-fab{right:16px;bottom:16px}
+}
+</style>
+
+<button id="sv-chat-fab" aria-label="Open chat" onclick="svChatToggle()">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+  <span class="sv-chat-badge">Ask</span>
+</button>
+
+<div id="sv-chat-panel" role="dialog" aria-label="Stratvya Assistant">
+  <div class="sv-chat-head">
+    <div class="sv-chat-avatar"><img src="assets/stratvya-logo.png" alt=""></div>
+    <div class="sv-chat-title"><strong>Stratvya Assistant</strong><span>Online · usually replies instantly</span></div>
+    <button class="sv-chat-close" onclick="svChatToggle()" aria-label="Close">×</button>
+  </div>
+  <div class="sv-chat-body" id="sv-chat-body"></div>
+  <div class="sv-chat-suggestions" id="sv-chat-sugg">
+    <button class="sv-chat-sugg" onclick="svChatSend('How does the Talent Pool work?')">How does the Talent Pool work?</button>
+    <button class="sv-chat-sugg" onclick="svChatSend('What are your program tiers?')">Program tiers?</button>
+    <button class="sv-chat-sugg" onclick="svChatSend('How do I book a free audit?')">Book a free audit</button>
+  </div>
+  <div class="sv-chat-input">
+    <input id="sv-chat-input" type="text" placeholder="Ask anything about Stratvya…" onkeydown="if(event.key==='Enter')svChatSend()">
+    <button id="sv-chat-send" onclick="svChatSend()">Send</button>
+  </div>
+  <div class="sv-chat-foot">AI replies. May make mistakes — verify important info.</div>
+</div>
+
+<script>
+(function(){
+  const SYSTEM_PROMPT = `You are the Stratvya Assistant, the friendly AI guide on stratvya.com. Stratvya is an Engineered Operations & Scaling Solutions company that helps businesses build, operate and scale through structured systems.
+
+KEY OFFERINGS:
+- Programs (4 tiers): Bronze (Launch — foundation systems), Silver (Growth — revenue systems), Gold (Scale — scaling infrastructure), Diamond (Elite — full-spectrum partnership).
+- Additional offers: Bundle (all-in growth package), CMS (Contractor Management Suite), Upgrades (system enhancements).
+- Stratvya Engineers (SE): builders — funnels, CRM, sales systems, ops, analysts, marketing strategists.
+- Stratvya Operators (SO): executors — VAs, account managers, project managers, content/admin support.
+- Remote Systems: Talent Pool (free to join) → Masterclass (free) → Build → Train → Certify → Deploy. Earnings model: you keep 90%, Stratvya 10%, only when you earn through Stratvya. No upfront cost, no lock-in.
+- Primary offer: 1-on-1 Business Coaching, starts with a Free Business Growth Audit.
+
+TONE: Warm, structured, concise. Lead with clarity. Direct people to the right page (Programs, Remote, Offers, Contact) when useful. If asked something off-topic, gently steer back. If they want to apply, push them to "Apply for a Free Business Growth Audit" via the Contact page. Never make up pricing, dates, or guarantees of employment/income.
+
+Keep replies under 120 words unless the user asks for detail.`;
+
+  const body = document.getElementById('sv-chat-body');
+  const input = document.getElementById('sv-chat-input');
+  const sendBtn = document.getElementById('sv-chat-send');
+  const sugg = document.getElementById('sv-chat-sugg');
+  const history = [];
+  let busy = false;
+
+  function addMsg(role, text){
+    const div = document.createElement('div');
+    div.className = 'sv-msg ' + (role === 'user' ? 'user' : 'bot');
+    div.textContent = text;
+    body.appendChild(div);
+    body.scrollTop = body.scrollHeight;
+    return div;
+  }
+  function addTyping(){
+    const div = document.createElement('div');
+    div.className = 'sv-msg bot typing';
+    div.innerHTML = '<span></span><span></span><span></span>';
+    body.appendChild(div);
+    body.scrollTop = body.scrollHeight;
+    return div;
+  }
+
+  // greeting
+  addMsg('bot', "Hi 👋 I'm the Stratvya Assistant. Ask me about our programs, the Remote Systems talent pool, the free audit, or anything else — I'll point you the right way.");
+
+  window.svChatToggle = function(){
+    const p = document.getElementById('sv-chat-panel');
+    p.classList.toggle('open');
+    if(p.classList.contains('open')) setTimeout(()=>input.focus(), 100);
+  };
+
+  window.svChatSend = async function(preset){
+    if(busy) return;
+    const text = (preset || input.value).trim();
+    if(!text) return;
+    input.value = '';
+    sugg.style.display = 'none';
+    addMsg('user', text);
+    history.push({role:'user', content:text});
+    busy = true; sendBtn.disabled = true;
+    const typing = addTyping();
+    try{
+      const apiKey = window.STRATVYA_API_KEY || '';
+      let reply;
+      if (apiKey) {
+        const resp = await fetch('https://api.anthropic.com/v1/messages', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': apiKey,
+            'anthropic-version': '2023-06-01'
+          },
+          body: JSON.stringify({
+            model: 'claude-haiku-4-5-20251001',
+            max_tokens: 256,
+            system: SYSTEM_PROMPT,
+            messages: history
+          })
+        });
+        const data = await resp.json();
+        reply = data?.content?.[0]?.text || "I couldn't get a response right now.";
+      } else {
+        reply = "Hi! Our AI assistant isn't configured yet. Please use the Contact page to reach us directly — we respond within 48 hours.";
+      }
+      typing.remove();
+      addMsg('bot', reply);
+      history.push({role:'assistant', content:reply});
+    }catch(e){
+      typing.remove();
+      addMsg('bot', "Sorry — I couldn't reach the assistant right now. Please try again, or use the Contact page to reach us directly.");
+    }finally{
+      busy = false; sendBtn.disabled = false;
+      input.focus();
+    }
+  };
+})();
+</script>
+
+</body>
+</html>
